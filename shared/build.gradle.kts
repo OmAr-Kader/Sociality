@@ -52,7 +52,7 @@ kotlin {
             implementation(libs.supabase.storage)
             implementation(libs.ktor.client.core)
             api(libs.logging)
-
+            implementation(libs.stately.common)
             // https://mvnrepository.com/artifact/org.jetbrains.kotlin/kotlin-reflect
         }
         androidMain.dependencies {
@@ -60,6 +60,8 @@ kotlin {
         }
         iosMain.dependencies {
             implementation(libs.ktor.client.darwin)
+            implementation(libs.stately.isolate)
+            implementation(libs.stately.iso.collections)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)

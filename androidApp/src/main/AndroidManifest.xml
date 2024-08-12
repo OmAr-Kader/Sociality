@@ -17,8 +17,6 @@
         android:appCategory="social"
         android:appComponentFactory="androidx.core.app.CoreComponentFactory"
         android:attributionsAreUserVisible="true"
-        android:dataExtractionRules="@xml/data_extraction_rules"
-        android:fullBackupContent="@xml/backup_rules"
         android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher"
         android:isAccessibilityTool="false"
