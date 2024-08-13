@@ -53,7 +53,6 @@ kotlin {
             implementation(libs.ktor.client.core)
             api(libs.logging)
             implementation(libs.stately.common)
-            // https://mvnrepository.com/artifact/org.jetbrains.kotlin/kotlin-reflect
         }
         androidMain.dependencies {
             implementation(libs.ktor.client.okhttp)

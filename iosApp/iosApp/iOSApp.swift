@@ -5,7 +5,7 @@ import shared
 struct iOSApp: App {
 
     init() {
-        AppModuleKt.doInitKoin()
+        IosAppModuleKt.doInitKoin()
     }
 
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
