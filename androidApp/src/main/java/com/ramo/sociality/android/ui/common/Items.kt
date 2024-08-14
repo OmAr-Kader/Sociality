@@ -65,7 +65,7 @@ import com.ramo.sociality.android.global.ui.SheetBottomTitle
 import com.ramo.sociality.android.global.ui.rememberComment
 import com.ramo.sociality.android.global.ui.rememberProfile
 import com.ramo.sociality.android.global.util.imageBuildr
-import com.ramo.sociality.android.global.util.marge
+import com.ramo.sociality.android.global.base.marge
 import com.ramo.sociality.data.model.Comment
 import com.ramo.sociality.data.model.MemeLord
 import com.ramo.sociality.data.model.PostContent

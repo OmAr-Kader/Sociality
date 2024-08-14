@@ -4,6 +4,7 @@ import SwiftUI
 //https://github.com/firebase/quickstart-ios/blob/master/messaging/MessagingExampleSwift/AppDelegate.swift
 
 class AppDelegate: NSObject, UIApplicationDelegate {
+    
     private(set) var appSet: AppObserve! = nil
     
     var app: AppObserve {

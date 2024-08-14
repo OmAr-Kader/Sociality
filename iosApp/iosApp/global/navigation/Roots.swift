@@ -9,6 +9,22 @@ extension View {
         switch target {
         case .SPLASH_SCREEN_ROUTE :
             SplashScreen(app: app)
+        case .AUTH_SCREEN_ROUTE:
+            SplashScreen(app: app)
+        case .HOME_SCREEN_ROUTE:
+            SplashScreen(app: app)
+        case .PROFILE_SCREEN_ROUTE:
+            SplashScreen(app: app)
+        case .POST_SCREEN_ROUTE:
+            SplashScreen(app: app)
+        case .POST_CREATOR_ROUTE:
+            SplashScreen(app: app)
+        case .SEARCH_SCREEN_ROUTE:
+            SplashScreen(app: app)
+        case .MESSENGER_SCREEN_ROUTE:
+            SplashScreen(app: app)
+        case .CHAT_SCREEN_ROUTE:
+            SplashScreen(app: app)
         }
     }
 }
@@ -16,6 +32,15 @@ extension View {
 enum Screen : Hashable {
     
     case SPLASH_SCREEN_ROUTE
+    
+    case AUTH_SCREEN_ROUTE
+    case HOME_SCREEN_ROUTE
+    case PROFILE_SCREEN_ROUTE
+    case POST_SCREEN_ROUTE
+    case POST_CREATOR_ROUTE
+    case SEARCH_SCREEN_ROUTE
+    case MESSENGER_SCREEN_ROUTE
+    case CHAT_SCREEN_ROUTE
 }
 
 

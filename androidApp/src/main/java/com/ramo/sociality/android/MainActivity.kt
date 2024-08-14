@@ -143,11 +143,9 @@ fun SplashScreen(
 ) {
     val scope = rememberCoroutineScope()
     OnLaunchScreenScope {
-        appViewModel.inti {
-            appViewModel.findUser {
-                scope.launch {
-                    navigateHome(if (it == null) AUTH_SCREEN_ROUTE else HOME_SCREEN_ROUTE)
-                }
+        appViewModel.findUserLive {
+            scope.launch {
+                navigateHome(if (it == null) AUTH_SCREEN_ROUTE else HOME_SCREEN_ROUTE)
             }
         }
     }

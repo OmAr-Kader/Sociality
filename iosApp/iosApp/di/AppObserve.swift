@@ -20,7 +20,7 @@ class AppObserve : ObservableObject {
 
     init() {
         prefsTask?.cancel()
-        prefsTask = scope.launchRealm {
+        prefsTask = scope.launchBack {
             try? await self.project.pref.prefs { list in
                 self.scope.launchMain {
                     self.preferences = list
@@ -51,21 +51,69 @@ class AppObserve : ObservableObject {
         }
     }
     
-    func fetchUser() {
-        /*job = scope.launchRealm {
-            try? await AuthKt.fetchSupaBaseUser(self.project.supaBase) { user, status in
-                if user != nil {
-                    self.cancelSession()
-                }
-                self.scope.launchMain {
-                    self.state = self.state.copy(user: user, sessionStatus: status)
+    func fetchUser(invoke: @escaping (UserBase?) -> Unit) {
+        scope.launchBack {
+            self.findPrefString(ConstKt.PREF_NAME) { name in
+                self.findPrefString(ConstKt.PREF_PROFILE_IMAGE) { profileImage in
+                    self.scope.launchBack {
+                        guard let userBase = try? await AuthKt.userInfo() else {
+                            invoke(nil)
+                            return
+                        }
+                        let user = UserBase(id: userBase.id, username: userBase.username, email: userBase.email, name: name ?? "", profilePicture: profileImage ?? "")
+                        self.scope.launchMain {
+                            self.state = self.state.copy(userBase: user)
+                            invoke(user)
+                        }
+                    }
                 }
             }
-        }*/
+        }
     }
     
+    func findUserLive(invoke: @escaping (UserBase?) -> Unit) {
+        scope.launchBack {
+            do {
+                try await AuthKt.fetchSupaBaseUser { userBase, status in
+                    guard let userBase = userBase else {
+                        if (status === SessionStatusDataNotAuthenticated()) {
+                            invoke(nil)
+                        }
+                        self.state = self.state.copy(sessionStatus: status)
+                        return
+                    }
+                    self.findPrefString(ConstKt.PREF_NAME) { name in
+                        self.findPrefString(ConstKt.PREF_PROFILE_IMAGE) { profileImage in
+                            let user = UserBase(id: userBase.id, username: userBase.username, email: userBase.email, name: name ?? "", profilePicture: profileImage ?? "")
+                            self.scope.launchMain {
+                                self.state = self.state.copy(userBase: user)
+                                invoke(user)
+                            }
+                        }
+                    }
+                }
+            } catch {
+                invoke(nil)
+            }
+        }
+    }
+    
+    private func findPrefString(
+        _ key: String,
+        value: @escaping (String?) -> Unit
+    ) {
+        if (preferences.isEmpty) {
+            self.inti { pref in
+                value(pref.first { it1 in it1.keyString == key }?.value)
+            }
+        } else {
+            value(preferences.first { it in it.keyString == key }?.value)
+        }
+    }
+    
+    
     private func inti(invoke: @BackgroundActor @escaping ([PreferenceData]) -> Unit) {
-        scope.launchRealm {
+        scope.launchBack {
             try? await self.project.pref.prefs { list in
                 invoke(list)
             }
@@ -82,7 +130,7 @@ class AppObserve : ObservableObject {
     
     @MainActor
     func signOut(_ invoke: @escaping @MainActor () -> Unit,_ failed: @escaping @MainActor () -> Unit) {
-        scope.launchRealm {
+        scope.launchBack {
             guard let result = try? await self.project.pref.deletePrefAll() else {
                 self.scope.launchMain {
                     failed()
@@ -104,7 +152,7 @@ class AppObserve : ObservableObject {
     struct State {
         var homeScreen: Screen = .SPLASH_SCREEN_ROUTE
         var sessionStatus: SessionStatusData = SessionStatusDataLoadingFromStorage()
-        var user: User? = nil
+        var userBase: UserBase? = nil
 
         var args = [Screen : any ScreenConfig]()
         
@@ -114,8 +162,8 @@ class AppObserve : ObservableObject {
             return self
         }
         
-        mutating func copy(user: User?, sessionStatus: any SessionStatusData) -> Self {
-            self.user = user
+        mutating func copy(userBase: UserBase? = nil, sessionStatus: any SessionStatusData = SessionStatusDataLoadingFromStorage()) -> Self {
+            self.userBase = userBase ?? self.userBase
             self.sessionStatus = sessionStatus
             return self
         }

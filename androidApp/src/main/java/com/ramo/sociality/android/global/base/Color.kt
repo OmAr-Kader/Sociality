@@ -23,3 +23,12 @@ fun Theme.outlinedTextFieldStyle(): androidx.compose.material3.TextFieldColors =
     unfocusedTextColor = textColor,
     errorBorderColor = error,
 )
+
+
+
+fun Color.marge(topColor: Color, ratio: Float = 0.5f): Color {
+    if (ratio == 0f) return this
+    if (ratio == 1f) return topColor
+    val intColor = ColorUtils.blendARGB(toArgb(), topColor.toArgb(), ratio)
+    return Color(intColor)
+}

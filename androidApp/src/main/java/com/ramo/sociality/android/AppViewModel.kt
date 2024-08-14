@@ -7,6 +7,8 @@ import com.ramo.sociality.android.global.navigation.valueOf
 import com.ramo.sociality.android.global.navigation.values
 import com.ramo.sociality.data.model.PreferenceData
 import com.ramo.sociality.data.model.UserBase
+import com.ramo.sociality.data.supaBase.SessionStatusData
+import com.ramo.sociality.data.supaBase.fetchSupaBaseUser
 import com.ramo.sociality.data.supaBase.userInfo
 import com.ramo.sociality.di.Project
 import com.ramo.sociality.global.base.PREF_NAME
@@ -23,7 +25,7 @@ class AppViewModel(project: Project) : BaseViewModel(project) {
 
     private var prefsJob: kotlinx.coroutines.Job? = null
 
-    fun inti(invoke: List<PreferenceData>.() -> Unit) {
+    private fun inti(invoke: List<PreferenceData>.() -> Unit) {
         prefsJob?.cancel()
         prefsJob = launchBack {
             project.pref.prefs {
@@ -46,6 +48,32 @@ class AppViewModel(project: Project) : BaseViewModel(project) {
                             }
                             invoke(it)
                         } ?: invoke(null)
+                    }
+                }
+            }
+        }
+    }
+
+    fun findUserLive(invoke: (UserBase?) -> Unit) {
+        launchBack {
+            fetchSupaBaseUser { userBase, status ->
+                if (userBase != null) {
+                    findPrefString(PREF_NAME) { name ->
+                        findPrefString(PREF_PROFILE_IMAGE) { profileImage ->
+                            userBase.copy(name = name ?: "", profilePicture = profileImage ?: "").let {
+                                _uiState.update { state ->
+                                    state.copy(userBase = it, sessionStatus = status)
+                                }
+                                invoke(it)
+                            }
+                        }
+                    }
+                } else {
+                     if (status == SessionStatusData.NotAuthenticated) {
+                         invoke(null)
+                     }
+                    _uiState.update { state ->
+                        state.copy(sessionStatus = status)
                     }
                 }
             }
@@ -76,6 +104,7 @@ class AppViewModel(project: Project) : BaseViewModel(project) {
     data class State(
         val isProcess: Boolean = false,
         val userBase: UserBase = UserBase(),
+        val sessionStatus: SessionStatusData = SessionStatusData.LoadingFromStorage,
         val args: List<Screen> = values(),
         val preferences: List<PreferenceData> = listOf(),
         val dummy: Int = 0,

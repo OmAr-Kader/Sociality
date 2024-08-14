@@ -43,15 +43,14 @@ struct SplashScreen : View {
                     withAnimation() {
                         width = 150
                     }
-                    /*app.findUserBase { it in
+                    app.findUserLive { it in
                         guard let it else {
-                            app.navigateHome(.SIGN_ROUTE)
+                            app.navigateHome(.AUTH_SCREEN_ROUTE)
                             return
                         }
-                        app.navigateHome(.HOME_ROUTE())
-                    }*/
+                        app.navigateHome(.HOME_SCREEN_ROUTE)
+                    }
                 }
-            Text(app.state.user?.username ?? "")
         }.background(theme.background)
     }
 }

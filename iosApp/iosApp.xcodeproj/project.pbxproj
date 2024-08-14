@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		058557BB273AAA24004C7B11 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 058557BA273AAA24004C7B11 /* Assets.xcassets */; };
 		058557D9273AAEEB004C7B11 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 058557D8273AAEEB004C7B11 /* Preview Assets.xcassets */; };
+		07065AEB2C6CFB4100280500 /* IOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07065AEA2C6CFB4100280500 /* IOSApp.swift */; };
 		07C83BD22C6B624100CC4485 /* AppModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C83BB32C6B624100CC4485 /* AppModule.swift */; };
 		07C83BD32C6B624100CC4485 /* AppObserve.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C83BB42C6B624100CC4485 /* AppObserve.swift */; };
 		07C83BD42C6B624100CC4485 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C83BB62C6B624100CC4485 /* Color.swift */; };
@@ -33,7 +34,6 @@
 		07C83BE72C6B624100CC4485 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C83BCF2C6B624100CC4485 /* AppDelegate.swift */; };
 		07C83BE82C6B624100CC4485 /* Main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C83BD02C6B624100CC4485 /* Main.swift */; };
 		07C83BEB2C6B666600CC4485 /* Swinject in Frameworks */ = {isa = PBXBuildFile; productRef = 07C83BEA2C6B666600CC4485 /* Swinject */; };
-		2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2152FB032600AC8F00CF470E /* iOSApp.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -52,7 +52,7 @@
 /* Begin PBXFileReference section */
 		058557BA273AAA24004C7B11 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		058557D8273AAEEB004C7B11 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		07C83BB22C6B624100CC4485 /* iOSApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = iOSApp.swift; sourceTree = "<group>"; };
+		07065AEA2C6CFB4100280500 /* IOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOSApp.swift; sourceTree = "<group>"; };
 		07C83BB32C6B624100CC4485 /* AppModule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppModule.swift; sourceTree = "<group>"; };
 		07C83BB42C6B624100CC4485 /* AppObserve.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppObserve.swift; sourceTree = "<group>"; };
 		07C83BB62C6B624100CC4485 /* Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
@@ -76,7 +76,6 @@
 		07C83BCC2C6B624100CC4485 /* Web.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Web.swift; sourceTree = "<group>"; };
 		07C83BCF2C6B624100CC4485 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		07C83BD02C6B624100CC4485 /* Main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Main.swift; sourceTree = "<group>"; };
-		2152FB032600AC8F00CF470E /* iOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSApp.swift; sourceTree = "<group>"; };
 		7555FF7B242A565900829871 /* iosApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iosApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7555FF8C242A565B00829871 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -196,14 +195,13 @@
 		7555FF7D242A565900829871 /* iosApp */ = {
 			isa = PBXGroup;
 			children = (
-				07C83BCF2C6B624100CC4485 /* AppDelegate.swift */,
 				07C83BB52C6B624100CC4485 /* di */,
 				07C83BCE2C6B624100CC4485 /* global */,
-				07C83BB22C6B624100CC4485 /* iOSApp.swift */,
+				07C83BCF2C6B624100CC4485 /* AppDelegate.swift */,
 				07C83BD02C6B624100CC4485 /* Main.swift */,
+				07065AEA2C6CFB4100280500 /* IOSApp.swift */,
 				058557BA273AAA24004C7B11 /* Assets.xcassets */,
 				7555FF8C242A565B00829871 /* Info.plist */,
-				2152FB032600AC8F00CF470E /* iOSApp.swift */,
 				058557D7273AAEEB004C7B11 /* Preview Content */,
 			);
 			path = iosApp;
@@ -317,7 +315,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				07C83BE42C6B624100CC4485 /* Media.swift in Sources */,
-				2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */,
 				07C83BDD2C6B624100CC4485 /* BottomSheet.swift in Sources */,
 				07C83BD62C6B624100CC4485 /* Theme.swift in Sources */,
 				07C83BE82C6B624100CC4485 /* Main.swift in Sources */,
@@ -336,6 +333,7 @@
 				07C83BDB2C6B624100CC4485 /* BottomBarItemView.swift in Sources */,
 				07C83BE62C6B624100CC4485 /* Web.swift in Sources */,
 				07C83BD72C6B624100CC4485 /* Roots.swift in Sources */,
+				07065AEB2C6CFB4100280500 /* IOSApp.swift in Sources */,
 				07C83BE32C6B624100CC4485 /* Views.swift in Sources */,
 				07C83BDC2C6B624100CC4485 /* BackButton.swift in Sources */,
 				07C83BDF2C6B624100CC4485 /* NavigationDrawer.swift in Sources */,
