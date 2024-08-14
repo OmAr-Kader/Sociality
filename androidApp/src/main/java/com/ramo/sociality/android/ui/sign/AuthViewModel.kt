@@ -54,7 +54,9 @@ class AuthViewModel(project: Project) : BaseViewModel(project) {
                         email = state.email,
                         name = state.name
                     ), state.password, invoke = {
-                        doSignUp(state, invoke, failed)
+                        launchBack {
+                            doSignUp(state, invoke, failed)
+                        }
                     },
                 ) {
                     setIsProcess(false)
@@ -75,7 +77,7 @@ class AuthViewModel(project: Project) : BaseViewModel(project) {
                     username = userBase.username
                 )
             )?.let { user ->
-                project.friendship.addNewFriendship(Friendship(userId = user.userId, friends = arrayOf())).let {
+                project.friendship.addNewFriendship(Friendship(userId = user.userId, friends = listOf())).let {
                     project.pref.updatePref(PreferenceData(PREF_NAME, state.name), state.name).also {
                         project.pref.updatePref(PreferenceData(PREF_PROFILE_IMAGE, user.profilePicture), user.profilePicture).also {
                             setIsProcess(false)
@@ -95,21 +97,29 @@ class AuthViewModel(project: Project) : BaseViewModel(project) {
 
     private suspend fun doLogin(state: State, invoke: () -> Unit, failed: () -> Unit) {
         signInAuth(state.email, state.password, invoke = {
-            userInfo()?.let {
-                project.profile.getProfileOnUserId(it.id)?.also { user ->
-                    project.pref.updatePref(PreferenceData(PREF_NAME, state.name), state.name).also {
-                        project.pref.updatePref(PreferenceData(PREF_PROFILE_IMAGE, user.profilePicture), user.profilePicture).also {
-                            setIsProcess(false)
-                            invoke()
-                        }
+            launchBack {
+                userInfo()?.let {
+                    project.profile.getProfileOnUserId(it.id)?.also { user ->
+                        project.pref.updatePref(PreferenceData(PREF_NAME, state.name), state.name)
+                            .also {
+                                project.pref.updatePref(
+                                    PreferenceData(
+                                        PREF_PROFILE_IMAGE,
+                                        user.profilePicture
+                                    ), user.profilePicture
+                                ).also {
+                                    setIsProcess(false)
+                                    invoke()
+                                }
+                            }
+                    } ?: kotlin.run {
+                        setIsProcess(false)
+                        invoke()
                     }
                 } ?: kotlin.run {
                     setIsProcess(false)
-                    invoke()
+                    failed()
                 }
-            } ?: kotlin.run {
-                setIsProcess(false)
-                failed()
             }
         }, {
             failed()

@@ -30,6 +30,8 @@ data class Comment(
     val userImage: String = "",
 ): BaseObject() {
 
+    constructor() : this(0L, "", 0L, "", "", "", "")
+
     val dat: Instant get() = Instant.parse(date)
 
     val timestamp: String get() {

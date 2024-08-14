@@ -36,6 +36,8 @@ data class Chat(
     @Transient
     val numberOfLastMessages: Int = 0,
 ): BaseObject() {
+    
+    constructor() : this(0L, "", arrayOf(), "", arrayOf(), "", "")
 
     @Transient
     val showSenderName: Boolean = members.size > 2

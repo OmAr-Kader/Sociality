@@ -26,6 +26,8 @@ data class Like(
     val date: String = "",
 ): BaseObject() {
 
+    constructor() : this(0L, "", 0L, 0L)
+
     private val dat: Instant get() = Instant.parse(date)
 
     val timestamp: String get() {

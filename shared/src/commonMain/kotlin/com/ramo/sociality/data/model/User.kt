@@ -30,6 +30,8 @@ data class User(
     val mode: Int = 0, // Addable = 0, Cancelable = -1, Acceptable = -2, Not Addable = 1, Own = 2
 ): BaseObject() {
 
+    constructor() : this(0L, "", "", "", "", "", "", 0)
+
     override fun json(): JsonObject {
         return kotlinx.serialization.json.Json.encodeToJsonElement(this.copy()).jsonObject.toMutableMap().apply {
             remove("id")
@@ -56,4 +58,7 @@ data class UserBase(
     val name: String = "",
     @Transient
     val profilePicture: String = ""
-)
+) {
+    constructor() : this("", "", "", "", "")
+
+}

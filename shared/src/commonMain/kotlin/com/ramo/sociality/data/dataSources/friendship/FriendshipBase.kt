@@ -11,9 +11,9 @@ class FriendshipBase(
     suspend fun addNewFriendship(item: Friendship): Friendship? = repo.addNewFriendship(item)
     suspend fun upsertFriendship(item: Friendship): Friendship? = repo.editFriendship(item)
     suspend fun doEditFriendships(friendship: Friendship, userBase: UserBase, userId: String, invoke: suspend (Boolean) -> Unit) {
-        editFriendship(friendship.copy(friends = friendship.friends.toMutableList().apply { add(userId) }.toTypedArray()))?.let {  // Add His Id to My friendShip
+        editFriendship(friendship.copy(friends = friendship.friends.toMutableList().apply { add(userId) }))?.let {  // Add His Id to My friendShip
             getFriendshipOnId(userId)?.let { his ->// Get His friendShip
-                editFriendship(it.copy(friends = his.friends.toMutableList().apply { add(userBase.id) }.toTypedArray()))?.also { // Add My Id to His friendShip
+                editFriendship(it.copy(friends = his.friends.toMutableList().apply { add(userBase.id) }))?.also { // Add My Id to His friendShip
                     invoke(true)
                 }
             }

@@ -28,6 +28,8 @@ data class Post(
     val lastEdit: String = "",
 ): BaseObject() {
 
+    constructor() : this(0L, "", arrayOf(), arrayOf(), "", "")
+
     val dat: Instant get() = Instant.parse(date)
 
     val timestamp: String get() {

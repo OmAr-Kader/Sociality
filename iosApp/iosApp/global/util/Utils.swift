@@ -3,6 +3,7 @@ import Foundation
 import os
 
 typealias Unit = Void
+typealias Long = Int64
 
 extension Int32 {
     var toNumber: NSNumber {
