@@ -9,8 +9,8 @@ class ChatBase(
 
     suspend fun getChatOnId(id: Long): Chat? = repo.getChatOnId(id)
     suspend fun getChatMessageOnId(id: Long): ChatMessageData? = repo.getChatMessageOnId(id)
-    suspend fun getChatOnUsers(userIds: Array<String>): Chat? = repo.getChatOnUsers(userIds)
-    suspend fun getChatMessageOnUsers(userIds: Array<String>): ChatMessageData? = repo.getChatMessageOnUsers(userIds)
+    suspend fun getChatOnUsers(userIds: List<String>): Chat? = repo.getChatOnUsers(userIds)
+    suspend fun getChatMessageOnUsers(userIds: List<String>): ChatMessageData? = repo.getChatMessageOnUsers(userIds)
     suspend fun getChatsOnUser(userIds: List<String>): List<Chat> = repo.getChatsOnUser(userIds)
     suspend fun getChatsMessagesOnUsers(userIds: List<String>): List<ChatMessageData> = repo.getChatsMessagesOnUsers(userIds)
     suspend fun addNewChat(item: Chat): Chat? = repo.addNewChat(item)

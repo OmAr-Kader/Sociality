@@ -24,6 +24,7 @@ data class Friendship(
             remove("id")
         }.let(::JsonObject)
     }
+
 }
 
 

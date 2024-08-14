@@ -75,7 +75,7 @@ fun ProfileScreen(userBase: UserBase, screen: () -> Screen.ProfileRoute?, naviga
                         onCancelFriendClicked = { viewModel.onCancelFriendClicked(userBase, state.user.userId) },
                         onMessageClicked = {
                             scope.launch {
-                                navigateToScreen(Screen.ChatRoute(0L, Chat(members = arrayOf(userBase.id, state.user.userId))), CHAT_SCREEN_ROUTE)
+                                navigateToScreen(Screen.ChatRoute(0L, Chat(members = listOf(userBase.id, state.user.userId))), CHAT_SCREEN_ROUTE)
                             }
                         }
                     )

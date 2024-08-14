@@ -94,7 +94,7 @@ class ChatViewModel(project: Project) : BaseViewModel(project) {
                             senderId = senderId,
                             content = uiState.chatText,
                             date = dateNow,
-                            readersIds = arrayOf(senderId)
+                            readersIds = listOf(senderId)
                         ).also { message ->
                             project.message.addNewMessage(message)?.also { firstMessage ->
                                 chat.injectChatForChatScreen(senderId, uiState.chat.users.toList()).also { chatInjected ->
@@ -117,7 +117,7 @@ class ChatViewModel(project: Project) : BaseViewModel(project) {
                         senderId = senderId,
                         content = uiState.chatText,
                         date = dateNow,
-                        readersIds = arrayOf(senderId)
+                        readersIds = listOf(senderId)
                     ).also { message ->
                         project.message.addNewMessage(message)?.also {
                             uiState.messages.toMutableList().apply { add(it) }.injectChatMessages(
@@ -142,7 +142,7 @@ class ChatViewModel(project: Project) : BaseViewModel(project) {
             }.also { messages ->
                 if (messages.isNotEmpty()) {
                     project.message.editMessages(
-                        messages.map { it.copy(readersIds = it.readersIds.toMutableList().apply { add(userId) }.toTypedArray()) }
+                        messages.map { it.copy(readersIds = it.readersIds.toMutableList().apply { add(userId) }) }
                     )
                 }
             }

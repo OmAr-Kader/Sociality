@@ -46,10 +46,19 @@ fun PostScreen(screen: () -> Screen.PostRoute?, backPress: suspend () -> Unit, t
         mutableStateOf(true)
     }
     val scope = rememberCoroutineScope()
+    val colorStopsUpper = remember {
+        arrayOf(1F to theme.backDarkAlpha, 0F to Color.Transparent)
+    }
+    val colorStopsDown = remember {
+        arrayOf(0.0F to theme.backDarkAlpha, 1F to Color.Transparent)
+    }
     Scaffold { padding ->
         Column(Modifier.padding(padding)) {
             val pagerState = rememberPagerState(initialPage = screen()?.pos ?: 0, pageCount = { list.size })
-            Box(Modifier.fillMaxSize().background(theme.background)) {
+            Box(
+                Modifier
+                    .fillMaxSize()
+                    .background(theme.background)) {
                 Column(
                     modifier = Modifier
                         .fillMaxWidth(),
@@ -91,7 +100,7 @@ fun PostScreen(screen: () -> Screen.PostRoute?, backPress: suspend () -> Unit, t
                                 modifier = Modifier
                                     .fillMaxWidth()
                                     .height(60.dp)
-                                    .background(Brush.verticalGradient(colorStops = arrayOf(1F to theme.backDarkAlpha, 1F to Color.Transparent))),
+                                    .background(Brush.verticalGradient(colorStops = colorStopsUpper)),
                             ) {
                                 Row(
                                     modifier = Modifier
@@ -111,7 +120,7 @@ fun PostScreen(screen: () -> Screen.PostRoute?, backPress: suspend () -> Unit, t
                                     modifier = Modifier
                                         .fillMaxWidth()
                                         .height(60.dp)
-                                        .background(Brush.verticalGradient(colorStops = arrayOf(0.0F to theme.backDarkAlpha, 1F to Color.Transparent))),
+                                        .background(Brush.verticalGradient(colorStops = colorStopsDown)),
                                     contentAlignment = Alignment.Center
                                 ) {
                                     Spacer(modifier = Modifier.height(13.dp))

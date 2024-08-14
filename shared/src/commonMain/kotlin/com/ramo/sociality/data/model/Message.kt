@@ -20,11 +20,11 @@ data class Chat(
     @SerialName("chat_tittle")
     val chartTitle: String = "",
     @SerialName("members")
-    val members: Array<String> = emptyArray(),// FOREIGN KEYS
+    val members: List<String> = listOf(),// FOREIGN KEYS
     @SerialName("chat_image")
     val chatImage: String = "",
     @Transient
-    val users: Array<User> = emptyArray(),
+    val users: List<User> = listOf(),
     @Transient
     val chatPic: String = "",
     @Transient
@@ -37,7 +37,7 @@ data class Chat(
     val numberOfLastMessages: Int = 0,
 ): BaseObject() {
     
-    constructor() : this(0L, "", arrayOf(), "", arrayOf(), "", "")
+    constructor() : this(0L, "", listOf(), "", listOf(), "", "")
 
     @Transient
     val showSenderName: Boolean = members.size > 2
@@ -50,27 +50,6 @@ data class Chat(
             remove("id")
         }.let(::JsonObject)
     }
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (other == null || this::class != other::class) return false
-
-        other as Chat
-
-        if (id != other.id) return false
-        if (chartTitle != other.chartTitle) return false
-        if (!members.contentEquals(other.members)) return false
-
-        return true
-    }
-
-    override fun hashCode(): Int {
-        var result = id.hashCode()
-        result = 31 * result + chartTitle.hashCode()
-        result = 31 * result + members.contentHashCode()
-        return result
-    }
-
 }
 
 @Serializable
@@ -86,7 +65,7 @@ data class Message(
     @SerialName("date")
     val date: String = "",
     @SerialName("readers_ids")
-    val readersIds: Array<String> = emptyArray(),
+    val readersIds: List<String> = listOf(),
     @Transient
     val isSeen: Boolean = false,
     @Transient
@@ -108,38 +87,6 @@ data class Message(
         return kotlinx.serialization.json.Json.encodeToJsonElement(this.copy()).jsonObject.toMutableMap().apply {
             remove("id")
         }.let(::JsonObject)
-    }
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (other == null || this::class != other::class) return false
-
-        other as Message
-
-        if (id != other.id) return false
-        if (chatId != other.chatId) return false
-        if (senderId != other.senderId) return false
-        if (content != other.content) return false
-        if (date != other.date) return false
-        if (!readersIds.contentEquals(other.readersIds)) return false
-        if (isSeen != other.isSeen) return false
-        if (isSender != other.isSender) return false
-        if (senderName != other.senderName) return false
-
-        return true
-    }
-
-    override fun hashCode(): Int {
-        var result = id.hashCode()
-        result = 31 * result + chatId.hashCode()
-        result = 31 * result + senderId.hashCode()
-        result = 31 * result + content.hashCode()
-        result = 31 * result + date.hashCode()
-        result = 31 * result + readersIds.contentHashCode()
-        result = 31 * result + isSeen.hashCode()
-        result = 31 * result + isSender.hashCode()
-        result = 31 * result + senderName.hashCode()
-        return result
     }
 
 }

@@ -341,7 +341,7 @@ fun CommentItem(comment: Comment, theme: Theme) {
 
 @Composable
 fun PostContentScrollable(
-    about: Array<PostContent>,
+    about: List<PostContent>,
     theme: Theme = koinInject(),
 ) {
     Column(

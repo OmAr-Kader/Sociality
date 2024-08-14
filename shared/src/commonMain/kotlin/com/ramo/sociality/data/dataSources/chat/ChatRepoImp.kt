@@ -35,13 +35,13 @@ class ChatRepoImp(supabase: Supabase) : BaseRepoImp(supabase), ChatRepo {
         }
     }
 
-    override suspend fun getChatOnUsers(userIds: Array<String>): Chat? = querySingle(SUPA_CHAT) {
-        Chat::members contained userIds.toList()
+    override suspend fun getChatOnUsers(userIds: List<String>): Chat? = querySingle(SUPA_CHAT) {
+        Chat::members contained userIds
     }
 
-    override suspend fun getChatMessageOnUsers(userIds: Array<String>): ChatMessageData? {
+    override suspend fun getChatMessageOnUsers(userIds: List<String>): ChatMessageData? {
         return queryWithForeign(SUPA_CHAT, Columns.raw("*, $SUPA_MESSAGE(*)")) {
-            Chat::members contained userIds.toList() // contained: Only Have the items vs contains: Included that items and another
+            Chat::members contained userIds // contained: Only Have the items vs contains: Included that items and another
         }?.let { res ->
             res.toListOfObject<ChatMessage>(kotlinx.serialization.json.Json {
                 ignoreUnknownKeys = true
