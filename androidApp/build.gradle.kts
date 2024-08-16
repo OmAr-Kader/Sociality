@@ -10,11 +10,13 @@ android {
     defaultConfig {
         applicationId = "com.ramo.sociality.android"
         minSdk = 24
+        //noinspection OldTargetApi
         targetSdk = 34
         versionCode = 3
         versionName = "1.2"
     }
     buildFeatures {
+        buildConfig = true
         compose = true
     }
     kotlin {
@@ -36,6 +38,7 @@ android {
         getByName("release") {
             isMinifyEnabled = false
         }
+
     }
     buildToolsVersion = "35.0.0"
     compileOptions {

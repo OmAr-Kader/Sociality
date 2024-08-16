@@ -78,15 +78,21 @@ class ProfileViewModel(project: Project) : BaseViewModel(project) {
         uiState.value.also { state ->
             launchBack {
                 editFriendships(userBase, userId) {
-                    project.friendRequest.acceptFriendRequest(requests = state.requests, myId = userBase.id, userId = userId).also {
-                        if (it == REALM_SUCCESS) {
-                            fetchMyProfileInfo(userBase.id, userId) { mode, friendShip, requests -> // getMyFriendShips, and Requests
-                                _uiState.update { state ->
-                                    state.copy(user = state.user.copy(mode = mode), friendShip = friendShip, requests = requests, isProcess = false)
+                    launchBack {
+                        project.friendRequest.acceptFriendRequest(
+                            requests = state.requests,
+                            myId = userBase.id,
+                            userId = userId
+                        ).also {
+                            if (it == REALM_SUCCESS) {
+                                fetchMyProfileInfo(userBase.id, userId) { mode, friendShip, requests -> // getMyFriendShips, and Requests
+                                    _uiState.update { state ->
+                                        state.copy(user = state.user.copy(mode = mode), friendShip = friendShip, requests = requests, isProcess = false)
+                                    }
                                 }
+                            } else {
+                                setProcess(false)
                             }
-                        } else {
-                            setProcess(false)
                         }
                     }
                 }
@@ -94,7 +100,7 @@ class ProfileViewModel(project: Project) : BaseViewModel(project) {
         }
     }
 
-    private suspend fun editFriendships(userBase: UserBase, userId: String, invoke: suspend () -> Unit) {
+    private suspend fun editFriendships(userBase: UserBase, userId: String, invoke: () -> Unit) {
         uiState.value.also { uiState ->
             launchBack {
                 project.friendship.doEditFriendships(uiState.friendShip, userBase = userBase, userId = userId) { isSuccess ->
@@ -122,7 +128,7 @@ class ProfileViewModel(project: Project) : BaseViewModel(project) {
                             state.copy(user = state.user.copy(mode = 0), requests = newRequests, isLocked = false)
                         }
                     } else {
-                        setLock(true)
+                        setLock(false)
                     }
                 }
             }

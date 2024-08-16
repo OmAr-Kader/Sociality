@@ -5,7 +5,11 @@ import shared
 struct iOSApp: App {
 
     init() {
-        IosAppModuleKt.doInitKoin()
+        #if DEBUG
+        IosAppModuleKt.doInitKoin(isDebugMode: true)
+        #else
+        IosAppModuleKt.doInitKoin(isDebugMode: false)
+        #endif
     }
 
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate

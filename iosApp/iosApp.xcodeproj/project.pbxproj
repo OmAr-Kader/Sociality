@@ -12,6 +12,21 @@
 		07065AEB2C6CFB4100280500 /* IOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07065AEA2C6CFB4100280500 /* IOSApp.swift */; };
 		07065AF42C6D0D1900280500 /* AuthObserve.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07065AF32C6D0D1900280500 /* AuthObserve.swift */; };
 		07065AF92C6D1DA000280500 /* Defaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07065AF82C6D1DA000280500 /* Defaults.swift */; };
+		07C107432C6F9A440032F3E6 /* SearchObserve.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C107422C6F9A440032F3E6 /* SearchObserve.swift */; };
+		07C107452C6F9A6B0032F3E6 /* AuthScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C107442C6F9A6B0032F3E6 /* AuthScreen.swift */; };
+		07C107472C6F9A940032F3E6 /* SearchScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C107462C6F9A940032F3E6 /* SearchScreen.swift */; };
+		07C107492C6F9AB20032F3E6 /* ProfileScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C107482C6F9AB20032F3E6 /* ProfileScreen.swift */; };
+		07C1074B2C6F9AC30032F3E6 /* ProfileObserve.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C1074A2C6F9AC30032F3E6 /* ProfileObserve.swift */; };
+		07C1074D2C6F9B0C0032F3E6 /* PostCreatorScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C1074C2C6F9B0C0032F3E6 /* PostCreatorScreen.swift */; };
+		07C1074F2C6F9B1D0032F3E6 /* PostCreatorObserve.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C1074E2C6F9B1D0032F3E6 /* PostCreatorObserve.swift */; };
+		07C107512C6F9B370032F3E6 /* PostScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C107502C6F9B370032F3E6 /* PostScreen.swift */; };
+		07C107532C6F9B5D0032F3E6 /* HomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C107522C6F9B5D0032F3E6 /* HomeScreen.swift */; };
+		07C107552C6F9B790032F3E6 /* HomeObserve.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C107542C6F9B790032F3E6 /* HomeObserve.swift */; };
+		07C107572C6F9B950032F3E6 /* Items.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C107562C6F9B950032F3E6 /* Items.swift */; };
+		07C107592C6F9BB30032F3E6 /* ChatScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C107582C6F9BB30032F3E6 /* ChatScreen.swift */; };
+		07C1075B2C6F9BDA0032F3E6 /* ChatObserve.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C1075A2C6F9BDA0032F3E6 /* ChatObserve.swift */; };
+		07C1075D2C6F9C2B0032F3E6 /* MessengerScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C1075C2C6F9C2B0032F3E6 /* MessengerScreen.swift */; };
+		07C1075F2C6F9C480032F3E6 /* MessengerObserve.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C1075E2C6F9C480032F3E6 /* MessengerObserve.swift */; };
 		07C83BD22C6B624100CC4485 /* AppModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C83BB32C6B624100CC4485 /* AppModule.swift */; };
 		07C83BD32C6B624100CC4485 /* AppObserve.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C83BB42C6B624100CC4485 /* AppObserve.swift */; };
 		07C83BD42C6B624100CC4485 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C83BB62C6B624100CC4485 /* Color.swift */; };
@@ -57,6 +72,21 @@
 		07065AEA2C6CFB4100280500 /* IOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOSApp.swift; sourceTree = "<group>"; };
 		07065AF32C6D0D1900280500 /* AuthObserve.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthObserve.swift; sourceTree = "<group>"; };
 		07065AF82C6D1DA000280500 /* Defaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Defaults.swift; sourceTree = "<group>"; };
+		07C107422C6F9A440032F3E6 /* SearchObserve.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchObserve.swift; sourceTree = "<group>"; };
+		07C107442C6F9A6B0032F3E6 /* AuthScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthScreen.swift; sourceTree = "<group>"; };
+		07C107462C6F9A940032F3E6 /* SearchScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchScreen.swift; sourceTree = "<group>"; };
+		07C107482C6F9AB20032F3E6 /* ProfileScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreen.swift; sourceTree = "<group>"; };
+		07C1074A2C6F9AC30032F3E6 /* ProfileObserve.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileObserve.swift; sourceTree = "<group>"; };
+		07C1074C2C6F9B0C0032F3E6 /* PostCreatorScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCreatorScreen.swift; sourceTree = "<group>"; };
+		07C1074E2C6F9B1D0032F3E6 /* PostCreatorObserve.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCreatorObserve.swift; sourceTree = "<group>"; };
+		07C107502C6F9B370032F3E6 /* PostScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostScreen.swift; sourceTree = "<group>"; };
+		07C107522C6F9B5D0032F3E6 /* HomeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreen.swift; sourceTree = "<group>"; };
+		07C107542C6F9B790032F3E6 /* HomeObserve.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeObserve.swift; sourceTree = "<group>"; };
+		07C107562C6F9B950032F3E6 /* Items.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Items.swift; sourceTree = "<group>"; };
+		07C107582C6F9BB30032F3E6 /* ChatScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatScreen.swift; sourceTree = "<group>"; };
+		07C1075A2C6F9BDA0032F3E6 /* ChatObserve.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatObserve.swift; sourceTree = "<group>"; };
+		07C1075C2C6F9C2B0032F3E6 /* MessengerScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessengerScreen.swift; sourceTree = "<group>"; };
+		07C1075E2C6F9C480032F3E6 /* MessengerObserve.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessengerObserve.swift; sourceTree = "<group>"; };
 		07C83BB32C6B624100CC4485 /* AppModule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppModule.swift; sourceTree = "<group>"; };
 		07C83BB42C6B624100CC4485 /* AppObserve.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppObserve.swift; sourceTree = "<group>"; };
 		07C83BB62C6B624100CC4485 /* Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
@@ -120,6 +150,10 @@
 		07065AED2C6CFCB500280500 /* chat */ = {
 			isa = PBXGroup;
 			children = (
+				07C1075A2C6F9BDA0032F3E6 /* ChatObserve.swift */,
+				07C107582C6F9BB30032F3E6 /* ChatScreen.swift */,
+				07C1075E2C6F9C480032F3E6 /* MessengerObserve.swift */,
+				07C1075C2C6F9C2B0032F3E6 /* MessengerScreen.swift */,
 			);
 			path = chat;
 			sourceTree = "<group>";
@@ -127,6 +161,7 @@
 		07065AEE2C6CFCC400280500 /* common */ = {
 			isa = PBXGroup;
 			children = (
+				07C107562C6F9B950032F3E6 /* Items.swift */,
 			);
 			path = common;
 			sourceTree = "<group>";
@@ -134,6 +169,8 @@
 		07065AEF2C6CFCF300280500 /* home */ = {
 			isa = PBXGroup;
 			children = (
+				07C107542C6F9B790032F3E6 /* HomeObserve.swift */,
+				07C107522C6F9B5D0032F3E6 /* HomeScreen.swift */,
 			);
 			path = home;
 			sourceTree = "<group>";
@@ -141,6 +178,9 @@
 		07065AF02C6CFD0600280500 /* post */ = {
 			isa = PBXGroup;
 			children = (
+				07C1074E2C6F9B1D0032F3E6 /* PostCreatorObserve.swift */,
+				07C1074C2C6F9B0C0032F3E6 /* PostCreatorScreen.swift */,
+				07C107502C6F9B370032F3E6 /* PostScreen.swift */,
 			);
 			path = post;
 			sourceTree = "<group>";
@@ -148,6 +188,10 @@
 		07065AF12C6CFD1400280500 /* profile */ = {
 			isa = PBXGroup;
 			children = (
+				07C1074A2C6F9AC30032F3E6 /* ProfileObserve.swift */,
+				07C107482C6F9AB20032F3E6 /* ProfileScreen.swift */,
+				07C107422C6F9A440032F3E6 /* SearchObserve.swift */,
+				07C107462C6F9A940032F3E6 /* SearchScreen.swift */,
 			);
 			path = profile;
 			sourceTree = "<group>";
@@ -156,6 +200,7 @@
 			isa = PBXGroup;
 			children = (
 				07065AF32C6D0D1900280500 /* AuthObserve.swift */,
+				07C107442C6F9A6B0032F3E6 /* AuthScreen.swift */,
 			);
 			path = sign;
 			sourceTree = "<group>";
@@ -392,32 +437,47 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				07C1075B2C6F9BDA0032F3E6 /* ChatObserve.swift in Sources */,
 				07C83BE42C6B624100CC4485 /* Media.swift in Sources */,
 				07065AF92C6D1DA000280500 /* Defaults.swift in Sources */,
 				07C83BDD2C6B624100CC4485 /* BottomSheet.swift in Sources */,
 				07C83BD62C6B624100CC4485 /* Theme.swift in Sources */,
 				07C83BE82C6B624100CC4485 /* Main.swift in Sources */,
 				07C83BD52C6B624100CC4485 /* Scope.swift in Sources */,
+				07C107472C6F9A940032F3E6 /* SearchScreen.swift in Sources */,
+				07C107552C6F9B790032F3E6 /* HomeObserve.swift in Sources */,
 				07C83BE22C6B624100CC4485 /* ToastView.swift in Sources */,
+				07C1074D2C6F9B0C0032F3E6 /* PostCreatorScreen.swift in Sources */,
 				07C83BD82C6B624100CC4485 /* BarBuilder.swift in Sources */,
 				07C83BD22C6B624100CC4485 /* AppModule.swift in Sources */,
 				07C83BD32C6B624100CC4485 /* AppObserve.swift in Sources */,
 				07C83BDA2C6B624100CC4485 /* BottomBarItem.swift in Sources */,
 				07C83BE12C6B624100CC4485 /* StatusBar.swift in Sources */,
+				07C1074B2C6F9AC30032F3E6 /* ProfileObserve.swift in Sources */,
+				07C107432C6F9A440032F3E6 /* SearchObserve.swift in Sources */,
+				07C107532C6F9B5D0032F3E6 /* HomeScreen.swift in Sources */,
 				07C83BE02C6B624100CC4485 /* OutlinedTextField.swift in Sources */,
+				07C107592C6F9BB30032F3E6 /* ChatScreen.swift in Sources */,
+				07C1075F2C6F9C480032F3E6 /* MessengerObserve.swift in Sources */,
+				07C1074F2C6F9B1D0032F3E6 /* PostCreatorObserve.swift in Sources */,
 				07C83BE72C6B624100CC4485 /* AppDelegate.swift in Sources */,
 				07C83BDE2C6B624100CC4485 /* Image.swift in Sources */,
 				07C83BE52C6B624100CC4485 /* Utils.swift in Sources */,
 				07C83BD92C6B624100CC4485 /* BottomBar.swift in Sources */,
+				07C107492C6F9AB20032F3E6 /* ProfileScreen.swift in Sources */,
 				07065AF42C6D0D1900280500 /* AuthObserve.swift in Sources */,
 				07C83BDB2C6B624100CC4485 /* BottomBarItemView.swift in Sources */,
 				07C83BE62C6B624100CC4485 /* Web.swift in Sources */,
+				07C107452C6F9A6B0032F3E6 /* AuthScreen.swift in Sources */,
 				07C83BD72C6B624100CC4485 /* Roots.swift in Sources */,
 				07065AEB2C6CFB4100280500 /* IOSApp.swift in Sources */,
+				07C1075D2C6F9C2B0032F3E6 /* MessengerScreen.swift in Sources */,
 				07C83BE32C6B624100CC4485 /* Views.swift in Sources */,
+				07C107572C6F9B950032F3E6 /* Items.swift in Sources */,
 				07C83BDC2C6B624100CC4485 /* BackButton.swift in Sources */,
 				07C83BDF2C6B624100CC4485 /* NavigationDrawer.swift in Sources */,
 				07C83BD42C6B624100CC4485 /* Color.swift in Sources */,
+				07C107512C6F9B370032F3E6 /* PostScreen.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

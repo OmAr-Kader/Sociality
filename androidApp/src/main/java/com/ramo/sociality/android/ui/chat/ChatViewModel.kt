@@ -97,9 +97,9 @@ class ChatViewModel(project: Project) : BaseViewModel(project) {
                             readersIds = listOf(senderId)
                         ).also { message ->
                             project.message.addNewMessage(message)?.also { firstMessage ->
-                                chat.injectChatForChatScreen(senderId, uiState.chat.users.toList()).also { chatInjected ->
+                                chat.injectChatForChatScreen(senderId, chat.users.toList()).also { chatInjected ->
                                     listOf(firstMessage).injectChatMessages(
-                                        uiState.chat,
+                                        chat,
                                         userId = senderId
                                     ).also { chatMessages ->
                                         _uiState.update { state ->
@@ -125,7 +125,7 @@ class ChatViewModel(project: Project) : BaseViewModel(project) {
                                 userId = senderId
                             ).also { chatMessages ->
                                 _uiState.update { state ->
-                                    state.copy(messages = chatMessages, chatText = "", dummy = state.dummy + 1 ,isProcess = false)
+                                    state.copy(messages = chatMessages, chatText = "", dummy = state.dummy + 1 , isProcess = false)
                                 }
                             }
                         }

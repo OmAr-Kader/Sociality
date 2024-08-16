@@ -10,8 +10,10 @@ class AppObserve : ObservableObject {
 
     private var scope = Scope()
 
+    @MainActor
     @Published var navigationPath = NavigationPath()
     
+    @MainActor
     @Published var state = State()
 
     private var preferences: [PreferenceData] = []
@@ -51,13 +53,15 @@ class AppObserve : ObservableObject {
         }
     }
     
-    func fetchUser(invoke: @escaping (UserBase?) -> Unit) {
+    func fetchUser(invoke: @MainActor @escaping (UserBase?) -> Unit) {
         scope.launchBack {
             self.findPrefString(ConstKt.PREF_NAME) { name in
                 self.findPrefString(ConstKt.PREF_PROFILE_IMAGE) { profileImage in
                     self.scope.launchBack {
                         guard let userBase = try? await AuthKt.userInfo() else {
-                            invoke(nil)
+                            self.scope.launchMain {
+                                invoke(nil)
+                            }
                             return
                         }
                         let user = UserBase(id: userBase.id, username: userBase.username, email: userBase.email, name: name ?? "", profilePicture: profileImage ?? "")
@@ -71,15 +75,19 @@ class AppObserve : ObservableObject {
         }
     }
     
-    func findUserLive(invoke: @escaping (UserBase?) -> Unit) {
+    func findUserLive(invoke: @MainActor @escaping (UserBase?) -> Unit) {
         scope.launchBack {
             do {
                 try await AuthKt.fetchSupaBaseUser { userBase, status in
                     guard let userBase = userBase else {
                         if (status === SessionStatusDataNotAuthenticated()) {
-                            invoke(nil)
+                            self.scope.launchMain {
+                                invoke(nil)
+                            }
                         }
-                        self.state = self.state.copy(sessionStatus: status)
+                        self.scope.launchMain {
+                            self.state = self.state.copy(sessionStatus: status)
+                        }
                         return
                     }
                     self.findPrefString(ConstKt.PREF_NAME) { name in
@@ -93,14 +101,17 @@ class AppObserve : ObservableObject {
                     }
                 }
             } catch {
-                invoke(nil)
+                self.scope.launchMain {
+                    invoke(nil)
+                }
             }
         }
     }
     
+    @BackgroundActor
     private func findPrefString(
         _ key: String,
-        value: @escaping (String?) -> Unit
+        value: @BackgroundActor @escaping (String?) -> Unit
     ) {
         if (preferences.isEmpty) {
             self.inti { pref in
@@ -120,10 +131,12 @@ class AppObserve : ObservableObject {
         }
     }
 
+    @MainActor
     func getArgument<T: ScreenConfig>(screen: Screen) -> T? {
         return state.argOf(screen)
     }
-
+    
+    @MainActor
     func writeArguments(_ route: Screen,_ screenConfig: ScreenConfig) {
         state = state.copy(route, screenConfig)
     }
@@ -148,23 +161,31 @@ class AppObserve : ObservableObject {
             }
         }
     }
+
     
+    private func cancelSession() {
+        prefsTask?.cancel()
+        prefsTask = nil
+    }
+
     struct State {
-        var homeScreen: Screen = .SPLASH_SCREEN_ROUTE
-        var sessionStatus: SessionStatusData = SessionStatusDataLoadingFromStorage()
-        var userBase: UserBase? = nil
-
-        var args = [Screen : any ScreenConfig]()
         
-
-        mutating func copy(homeScreen: Screen) -> Self {
-            self.homeScreen = homeScreen
-            return self
-        }
+        private(set) var homeScreen: Screen = .SPLASH_SCREEN_ROUTE
+        private(set) var sessionStatus: SessionStatusData = SessionStatusDataLoadingFromStorage()
+        private(set) var userBase: UserBase? = nil
+        private(set) var args = [Screen : any ScreenConfig]()
         
-        mutating func copy(userBase: UserBase? = nil, sessionStatus: any SessionStatusData = SessionStatusDataLoadingFromStorage()) -> Self {
+        @MainActor
+        mutating func copy(
+            homeScreen: Screen? = nil,
+            sessionStatus: SessionStatusData? = nil,
+            userBase: UserBase? = nil,
+            args: [Screen : any ScreenConfig]? = nil
+        ) -> Self {
+            self.homeScreen = homeScreen ?? self.homeScreen
+            self.sessionStatus = sessionStatus ?? self.sessionStatus
             self.userBase = userBase ?? self.userBase
-            self.sessionStatus = sessionStatus
+            self.args = args ?? self.args
             return self
         }
         
@@ -180,26 +201,6 @@ class AppObserve : ObservableObject {
         }
     }
 
-    private func cancelSession() {
-        prefsTask?.cancel()
-        prefsTask = nil
-    }
-
-    /*func hiIamJustBuilt() {
-        import AVFoundation
-        var player: AVAudioPlayer?
-        guard let path = Bundle.main.path(forResource: "beep", ofType:"mp3") else {
-            return
-        }
-        let url = URL(fileURLWithPath: path)
-        do {
-            player = try AVAudioPlayer(contentsOf: url)
-            player?.play()
-        } catch let error {
-            print(error.localizedDescription)
-        }
-    }*/
-    
     deinit {
         prefsTask?.cancel()
         prefsTask = nil
@@ -207,3 +208,18 @@ class AppObserve : ObservableObject {
     }
     
 }
+
+/*func hiIamJustBuilt() {
+    import AVFoundation
+    var player: AVAudioPlayer?
+    guard let path = Bundle.main.path(forResource: "beep", ofType:"mp3") else {
+        return
+    }
+    let url = URL(fileURLWithPath: path)
+    do {
+        player = try AVAudioPlayer(contentsOf: url)
+        player?.play()
+    } catch let error {
+        print(error.localizedDescription)
+    }
+}*/

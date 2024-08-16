@@ -23,7 +23,7 @@ class App : Application() {
         super.onCreate()
         startKoin {
             androidContext(this@App)
-            modules(appModule() + module {
+            modules(appModule(BuildConfig.DEBUG) + module {
                 single<Theme> { generateTheme(isDarkMode = isDarkMode) }
                 viewModel { AppViewModel(get()) }
                 viewModel { AuthViewModel(get()) }

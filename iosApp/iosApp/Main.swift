@@ -44,11 +44,7 @@ struct SplashScreen : View {
                         width = 150
                     }
                     app.findUserLive { it in
-                        guard let it else {
-                            app.navigateHome(.AUTH_SCREEN_ROUTE)
-                            return
-                        }
-                        app.navigateHome(.HOME_SCREEN_ROUTE)
+                        app.navigateHome(it != nil ? .HOME_SCREEN_ROUTE : .AUTH_SCREEN_ROUTE)
                     }
                 }
         }.background(theme.background)

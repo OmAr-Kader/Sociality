@@ -74,6 +74,8 @@ data class Message(
     val senderName: String = "",
 ): BaseObject() {
 
+    constructor() : this(0L)
+
     val dat: Instant get() = Instant.parse(date)
 
     val timestamp: String get() {

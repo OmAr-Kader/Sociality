@@ -8,6 +8,36 @@
 
 import shared
 
+extension Message {
+    
+    func copy(id: Int64? = nil, chatId: Int64? = nil, senderId: String? = nil, content: String? = nil, date: String? = nil, readersIds: [String]? = nil, isSeen: Bool? = nil, isSender: Bool? = nil, senderName: String? = nil
+    ) -> Message {
+        return Message(id: id ?? self.id, chatId: chatId ?? self.chatId, senderId: senderId ?? self.senderId, content: content ?? self.content, date: date ?? self.date, readersIds: readersIds ?? self.readersIds, isSeen: isSeen ?? self.isSeen, isSender: isSender ?? self.isSender, senderName: senderName ?? self.senderName)
+    }
+}
+
+extension Post {
+    
+    func copy(
+        id: Int64? = nil,
+        userId: String? = nil,
+        content: [PostContent]? = nil,
+        postMedia: [PostMedia]? = nil,
+        date: String? = nil,
+        lastEdit: String? = nil
+    ) -> Post {
+        return Post(id: id ?? self.id, userId: userId ?? self.userId, content: content ?? self.content, postMedia: postMedia ?? self.postMedia, date: date ?? self.date, lastEdit: lastEdit ?? self.lastEdit)
+    }
+}
+
+extension PostContent {
+    
+    func copy(font: Int32? = nil, text: String? = nil) -> PostContent {
+        return PostContent(font: font ?? self.font, text: text ?? self.text)
+    }
+}
+
+
 extension Friendship {
  
     func copy(id: Long? = nil,  userId: String? = nil, friends: Array<String>? = nil) -> Friendship {
