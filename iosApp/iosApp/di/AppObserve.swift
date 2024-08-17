@@ -19,17 +19,6 @@ class AppObserve : ObservableObject {
     private var preferences: [PreferenceData] = []
     private var prefsTask: Task<Void, Error>? = nil
     private var job: Task<Void, Error>? = nil
-
-    init() {
-        prefsTask?.cancel()
-        prefsTask = scope.launchBack {
-            try? await self.project.pref.prefs { list in
-                self.scope.launchMain {
-                    self.preferences = list
-                }
-            }
-        }
-    }
     
     @MainActor
     var navigateHome: (Screen) -> Unit {
@@ -39,6 +28,11 @@ class AppObserve : ObservableObject {
             }
             return ()
         }
+    }
+    
+    @MainActor
+    func navigateHomeNoAnimation(_ screen: Screen) -> Unit {
+        self.state = self.state.copy(homeScreen: screen)
     }
     
     @MainActor
@@ -75,11 +69,35 @@ class AppObserve : ObservableObject {
         }
     }
     
+    func findUser(invoke: @MainActor @escaping (UserBase?) -> Unit) {
+        scope.launchBack {
+            self.findPrefString(ConstKt.PREF_NAME) { name in
+                self.findPrefString(ConstKt.PREF_PROFILE_IMAGE) { profileImage in
+                    self.scope.launchBack {
+                        guard let user = try? await AuthKt.userInfo()?.copy(name: name ?? "", profilePicture: profileImage ?? "") else {
+                            self.scope.launchMain {
+                                invoke(nil)
+                            }
+                            return
+                        }
+                        self.scope.launchMain {
+                            self.state = self.state.copy(userBase: user)
+                            invoke(user)
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    
     func findUserLive(invoke: @MainActor @escaping (UserBase?) -> Unit) {
         scope.launchBack {
             do {
                 try await AuthKt.fetchSupaBaseUser { userBase, status in
+                    let _ = logger("fetchSupaBaseUser", "fetchSupaBaseUser")
                     guard let userBase = userBase else {
+                        let _ = logger("fetchSupaBaseUser", (userBase?.id ?? "nil"))
                         if (status === SessionStatusDataNotAuthenticated()) {
                             self.scope.launchMain {
                                 invoke(nil)
@@ -101,6 +119,7 @@ class AppObserve : ObservableObject {
                     }
                 }
             } catch {
+                logger("findUserLive", error.localizedDescription)
                 self.scope.launchMain {
                     invoke(nil)
                 }
@@ -125,12 +144,16 @@ class AppObserve : ObservableObject {
     
     private func inti(invoke: @BackgroundActor @escaping ([PreferenceData]) -> Unit) {
         scope.launchBack {
-            try? await self.project.pref.prefs { list in
-                invoke(list)
+            do {
+                try await self.project.pref.prefs { list in
+                    invoke(list)
+                }
+            } catch {
+                invoke([])
             }
         }
     }
-
+    
     @MainActor
     func getArgument<T: ScreenConfig>(screen: Screen) -> T? {
         return state.argOf(screen)
@@ -150,7 +173,7 @@ class AppObserve : ObservableObject {
                 }
                 return
             }
-            if result == RealmKt.REALM_SUCCESS.toNumber {
+            if result.int32Value == RealmKt.REALM_SUCCESS {
                 self.scope.launchMain {
                     invoke()
                 }
@@ -170,7 +193,7 @@ class AppObserve : ObservableObject {
 
     struct State {
         
-        private(set) var homeScreen: Screen = .SPLASH_SCREEN_ROUTE
+        private(set) var homeScreen: Screen = .AUTH_SCREEN_ROUTE
         private(set) var sessionStatus: SessionStatusData = SessionStatusDataLoadingFromStorage()
         private(set) var userBase: UserBase? = nil
         private(set) var args = [Screen : any ScreenConfig]()
@@ -208,18 +231,3 @@ class AppObserve : ObservableObject {
     }
     
 }
-
-/*func hiIamJustBuilt() {
-    import AVFoundation
-    var player: AVAudioPlayer?
-    guard let path = Bundle.main.path(forResource: "beep", ofType:"mp3") else {
-        return
-    }
-    let url = URL(fileURLWithPath: path)
-    do {
-        player = try AVAudioPlayer(contentsOf: url)
-        player?.play()
-    } catch let error {
-        print(error.localizedDescription)
-    }
-}*/

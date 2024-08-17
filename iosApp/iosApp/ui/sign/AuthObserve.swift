@@ -10,8 +10,7 @@ import Foundation
 import shared
 
 class AuthObserve : ObservableObject {
-    
-    
+
     @Inject
     private var project: Project
     
@@ -77,8 +76,8 @@ class AuthObserve : ObservableObject {
             if let newUser = try? await project.profile.addNewUser(item: user) {
                 do {
                     try await project.friendship.addNewFriendship(item: Friendship().copy(userId: newUser.userId, friends: []))
-                    try await project.pref.updatePref(pref: PreferenceData(ketString: ConstKt.PREF_NAME, value: state.name), newValue: state.name)
-                    try await project.pref.updatePref(pref: PreferenceData(ketString: ConstKt.PREF_PROFILE_IMAGE, value: newUser.profilePicture), newValue: newUser.profilePicture)
+                    try await project.pref.updatePref(pref: PreferenceData(keyString: ConstKt.PREF_NAME, value: state.name), newValue: state.name)
+                    try await project.pref.updatePref(pref: PreferenceData(keyString: ConstKt.PREF_PROFILE_IMAGE, value: newUser.profilePicture), newValue: newUser.profilePicture)
                     
                     scope.launchMain {
                         self.setMainProcess(false)
@@ -121,8 +120,8 @@ class AuthObserve : ObservableObject {
                     if let userBase = try? await AuthKt.userInfo() {
                         if let user = try? await self.project.profile.getProfileOnUserId(userId: userBase.id) {
                             do {
-                                try await self.project.pref.updatePref(pref: PreferenceData(ketString: ConstKt.PREF_NAME, value: state.name), newValue: state.name)
-                                try await self.project.pref.updatePref(pref: PreferenceData(ketString: ConstKt.PREF_PROFILE_IMAGE, value: user.profilePicture), newValue: user.profilePicture)
+                                try await self.project.pref.updatePref(pref: PreferenceData(keyString: ConstKt.PREF_NAME, value: state.name), newValue: state.name)
+                                try await self.project.pref.updatePref(pref: PreferenceData(keyString: ConstKt.PREF_PROFILE_IMAGE, value: user.profilePicture), newValue: user.profilePicture)
                                 
                                 self.scope.launchMain {
                                     self.setMainProcess(false)

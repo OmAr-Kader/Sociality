@@ -1,27 +1,24 @@
 import Foundation
 import SwiftUI
 
-//https://github.com/firebase/quickstart-ios/blob/master/messaging/MessagingExampleSwift/AppDelegate.swift
-
 class AppDelegate: NSObject, UIApplicationDelegate {
-    
+
     private(set) var appSet: AppObserve! = nil
     
     var app: AppObserve {
         guard let appSet else {
-            let app = AppObserve()
-            self.appSet = app
-            return app
+            let ap = AppObserve()
+            self.appSet = ap
+            return ap
         }
         return appSet
     }
     
+    
     func applicationWillTerminate(_ application: UIApplication) {
         appSet = nil
     }
-
 }
-
 
 /*
 import FirebaseCore
@@ -31,7 +28,6 @@ import FirebaseMessaging
 class AppDelegate: NSObject, UIApplicationDelegate {
     static private(set) var del: AppDelegate! = nil
     private(set) var appSet: AppModule! = nil
-    private(set) var prefSet: PrefObserve! = nil
     
     var app: AppModule {
         guard let appSet else {
@@ -42,17 +38,6 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         return appSet
     }
     
-    var pref: PrefObserve {
-        guard let prefSet else {
-            let pre = PrefObserve(
-                app,
-                Theme(isDarkMode: UITraitCollection.current.userInterfaceStyle.isDarkMode)
-            )
-            self.prefSet = pre
-            return pre
-        }
-        return prefSet
-    }
         
     func application(
         _ application: UIApplication,
@@ -86,7 +71,6 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     
     func applicationWillTerminate(_ application: UIApplication) {
         appSet = nil
-        prefSet = nil
     }
     
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any]) {
@@ -99,15 +83,15 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         
         // Print message ID.
         /*if let messageID = userInfo[gcmMessageIDKey] {
-         print("Message ID: \(messageID)")
+         logger("application", "Message ID: \(messageID)")
          }*/
         /*let n = PushNotification.init(info: userInfo)
 
-        print(userInfo)
-        print(n)
+         logger("application", userInfo)
+         logger("application", n)
 */
         // Print full message.
-        print(userInfo)
+ logger("application", userInfo)
     }
     
     // [START receive_message]
@@ -122,17 +106,17 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         
         // Print message ID.
         /*if let messageID = userInfo[gcmMessageIDKey] {
-         print("Message ID: \(messageID)")
+         logger("application", "Message ID: \(messageID)")
          }*/
         
         // Print full message.
-        print(userInfo)
+ logger("application", userInfo)
         
         completionHandler(UIBackgroundFetchResult.newData)
     }
     
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
-        print("Unable to register for remote notifications: \(error.localizedDescription)")
+ logger("application", "Unable to register for remote notifications: \(error.localizedDescription)")
     }
     
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
@@ -144,7 +128,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     // If swizzling is disabled then this function must be implemented so that the APNs token can be paired to
     // the FCM registration token.
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-        print("APNs token retrieved: \(deviceToken)")
+     logger("application", "APNs token retrieved: \(deviceToken)")
         
         // With swizzling disabled you must set the APNs token here.
         // Messaging.messaging().apnsToken = deviceToken

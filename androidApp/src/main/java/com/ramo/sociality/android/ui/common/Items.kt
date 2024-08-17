@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyItemScope
 import androidx.compose.foundation.lazy.LazyListState
@@ -146,7 +147,7 @@ fun LazyItemScope.PostItem(
                 )
             }
             Spacer(modifier = Modifier.height(8.dp))
-            PostContentScrollable(meme.post.content)
+            PostContentScrollable(meme.post.content, theme)
             if (meme.post.isHaveMedia) {
                 LazyRow(Modifier.fillMaxWidth().padding(start = 10.dp, end = 10.dp).height(200.dp).clip(RoundedCornerShape(20.dp)), state = state, horizontalArrangement = Arrangement.SpaceBetween) {
                     itemsIndexed(meme.post.postMedia) { i, it ->
@@ -157,7 +158,7 @@ fun LazyItemScope.PostItem(
                                     painter = painter,
                                     contentDescription = "Post Image",
                                     modifier = Modifier
-                                        .wrapContentHeight()
+                                        .wrapContentWidth()
                                         .height(200.dp)
                                         .clickable(onClick = { navigateToImage(i) }),
                                     contentScale = ContentScale.Fit
@@ -174,9 +175,9 @@ fun LazyItemScope.PostItem(
             }
             Spacer(modifier = Modifier.height(8.dp))
             Row(verticalAlignment = Alignment.CenterVertically) {
-                Text(text = "${meme.likes.size} likes", style = MaterialTheme.typography.bodySmall)
+                Text(text = "${meme.likes.size} likes", style = MaterialTheme.typography.bodySmall, color = theme.textHintColor)
                 Spacer(modifier = Modifier.width(16.dp))
-                Text(text = "${meme.comments.size} comments", style = MaterialTheme.typography.bodySmall)
+                Text(text = "${meme.comments.size} comments", style = MaterialTheme.typography.bodySmall, color = theme.textHintColor)
             }
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -342,7 +343,7 @@ fun CommentItem(comment: Comment, theme: Theme) {
 @Composable
 fun PostContentScrollable(
     about: List<PostContent>,
-    theme: Theme = koinInject(),
+    theme: Theme,
 ) {
     Column(
         modifier = Modifier

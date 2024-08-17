@@ -962,6 +962,27 @@ struct LoadingScreen : View {
         }
     }
 }
+
+struct FadeInOutView<Value: Hashable, Content: View>: View {
+
+    let value: Value
+    let content: (Value) -> Content
+    
+    @State private var didAppear = false
+
+    var body: some View {
+        content(value)
+            .transition(.asymmetric(
+                insertion: .opacity.animation(
+                    .easeInOut(duration: 0.35).delay(didAppear ? 0.2 : 0)
+                ),
+                removal: .opacity.animation(.easeInOut(duration: 0.2))
+            ))
+            .id(value)
+            .onAppear { didAppear = true }
+    }
+}
+
 /**
  
  

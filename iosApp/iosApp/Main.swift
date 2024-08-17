@@ -1,9 +1,11 @@
 import SwiftUI
 
 struct Main: View {
+
     @StateObject var app: AppObserve
     
-    let theme = Theme(isDarkMode: UITraitCollection.current.userInterfaceStyle.isDarkMode)
+    @Inject
+    private var theme: Theme
 
     var body: some View {
         //let isSplash = app.state.homeScreen == Screen.SPLASH_SCREEN_ROUTE
@@ -20,19 +22,17 @@ struct Main: View {
 }
 
 struct SplashScreen : View {
-    
-    @Inject
-    private var theme: Theme
-    
-    @StateObject var app: AppObserve
 
+    let onTask: @Sendable () async -> Void
+    
+    private let theme = Theme(isDarkMode: UITraitCollection.current.userInterfaceStyle.isDarkMode)
     @State private var scale: Double = 1
     @State private var width: CGFloat = 50
     var body: some View {
         FullZStack {
             Image(
                 uiImage: UIImage(
-                    named: "AppIcon"
+                    named: "sociality"
                 )?.withTintColor(
                     UIColor(theme.textColor)
                 ) ?? UIImage()
@@ -43,10 +43,7 @@ struct SplashScreen : View {
                     withAnimation() {
                         width = 150
                     }
-                    app.findUserLive { it in
-                        app.navigateHome(it != nil ? .HOME_SCREEN_ROUTE : .AUTH_SCREEN_ROUTE)
-                    }
-                }
+                }.task(onTask)
         }.background(theme.background)
     }
 }

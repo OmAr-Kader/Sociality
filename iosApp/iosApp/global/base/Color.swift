@@ -42,11 +42,11 @@ extension Color {
     }
     
     var margeWithPrimary: Color {
-        return (toUic * 0.85 + Color(red: 109, green: 157, blue: 241).toUic * 0.15).toC
+        return (toUic * 0.85 + Color(red: 109 / 255, green: 157 / 255, blue: 241 / 255).toUic * 0.15).toC
     }
 
     func margeWithPrimary(_ f: Double = 0.15) -> Color {
-        return (toUic * (1.0 - f) + Color(red: 109, green: 157, blue: 241).toUic * f).toC
+        return (toUic * (1.0 - f) + Color(red: 109 / 255, green: 157 / 255, blue: 241 / 255).toUic * f).toC
     }
     
     func margeColors(_ color: Color, _ f: Double) -> Color {

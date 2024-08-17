@@ -3,6 +3,7 @@ package com.ramo.sociality.data.dataSources.friendship
 import com.ramo.sociality.data.model.Friendship
 import com.ramo.sociality.data.model.UserBase
 
+@Suppress("unused")
 class FriendshipBase(
     private val repo: FriendshipRepo
 ) {

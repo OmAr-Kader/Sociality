@@ -1,21 +1,9 @@
 import Foundation
-//import SwiftDate
+import shared
 import os
 
 typealias Unit = Void
 typealias Long = Int64
-
-extension Int32 {
-    var toNumber: NSNumber {
-        NSNumber(value: self)
-    }
-}
-
-extension Int64 {
-    var toNumber: NSNumber {
-        NSNumber(value: self)
-    }
-}
 
 var currentTime: Int64 {
     return Int64(Date.now.timeIntervalSince1970 * 1000.0)
@@ -26,7 +14,7 @@ var currentTime: Int64 {
     do {
         try completion()
     } catch {
-        print("==>" + error.localizedDescription)
+        logger("UrlImageModel", "==>" + error.localizedDescription)
     }
 }
 
@@ -244,18 +232,21 @@ extension Float64 {
 }
 
 
-public func log(_ it: String, tag: String = "") {
-    print("==> \(tag) \(it)")
+public func logger(_ tag: String = "",_ it: String) {
+    LoggerKt.logger(tag: tag, error: it)
+    /*let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, category: "network")
+    logger.log("==> \(tag) \(it)")*/
 }
 
-public func logger(_ tag: String,_ it: String) {
-    let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, category: "network")
-    logger.log("==> \(tag) \(it)")
+public func logger(_ it: String) {
+    LoggerKt.logger(tag: "", error: it)
+    /*let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, category: "network")
+    logger.log("==> \(tag) \(it)")*/
 }
-
 public func loggerError(_ tag: String,_ it: String) {
-    let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, category: "network")
-    logger.log("==> \(tag) \(it)")
+    LoggerKt.loggerError(tag: tag, error: it)
+    /*let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, category: "network")
+    logger.log("==> \(tag) \(it)")*/
 }
 
 protocol ForData : Identifiable, Decodable, Hashable {

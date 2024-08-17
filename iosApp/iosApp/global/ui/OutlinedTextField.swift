@@ -133,8 +133,6 @@ struct OutlinedSecureField : View {
     let errorMsg: String
     let theme: Theme
     let cornerRadius: CGFloat
-    let lineLimit: Int?
-    let keyboardType: UIKeyboardType?
 
     @FocusState private var isFocused: Bool
 
@@ -155,9 +153,8 @@ struct OutlinedSecureField : View {
                     EdgeInsets(top: 15, leading: 20, bottom: 10, trailing: 15)
                 )
                 .fixedSize(horizontal: false, vertical: true)
-                .lineLimit(lineLimit)
+                .lineLimit(1)
             .focused($isFocused)
-            .keyboardType(keyboardType ?? .default)
             .preferredColorScheme(theme.isDarkMode ? .dark : .light)
             .background(
                 RoundedRectangle(cornerRadius: cornerRadius)

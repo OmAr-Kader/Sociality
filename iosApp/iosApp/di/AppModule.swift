@@ -18,11 +18,17 @@ func buildContainer() -> Container {
     return container
 }
 
+func initModule() async {
+#if DEBUG
+    try? await IosAppModuleKt.doInitKoin(isDebugMode: true)
+#else
+    try? await IosAppModuleKt.doInitKoin(isDebugMode: false)
+#endif
+}
 
 class Resolver {
     static let shared = Resolver()
     
-    //get the IOC container
     private var container = buildContainer()
     
     func resolve<T>(_ type: T.Type) -> T {

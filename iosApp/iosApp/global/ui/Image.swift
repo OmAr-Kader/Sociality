@@ -82,19 +82,19 @@ class UrlImageModel: ObservableObject {
 
     func loadImage() {
         if loadImageFromCache() {
-            print("Cache hit")
+            logger("UrlImageModel", "Cache hit")
             return
         }
-        print("Cache missing, loading from url")
+        logger("UrlImageModel", "Cache missing, loading from url")
         loadImageFromUrl()
     }
     
     func loadVideo() {
         if loadImageFromCache() {
-            print("Cache hit")
+            logger("UrlImageModel", "Cache hit")
             return
         }
-        print("Cache missing, loading from url")
+        logger("UrlImageModel", "Cache missing, loading from url")
         loadVideoFromURL()
     }
 
@@ -118,7 +118,7 @@ class UrlImageModel: ObservableObject {
             .replaceError(with: nil)
             // set image into cache!
             .handleEvents(receiveOutput: { [weak self] image in
-                print("WWW URL => " + String(image == nil))
+                logger("UrlImageModel", "WWW URL => " + String(image == nil))
                 guard let image = image else {return}
                 if self == nil {
                     return
@@ -133,25 +133,25 @@ class UrlImageModel: ObservableObject {
     }
     
     /*private func loadImageFromURL() {
-        print("WWW URL => " + (url?.absoluteString ?? "NULL"))
+     logger("UrlImageModel", "WWW URL => " + (url?.absoluteString ?? "NULL"))
         guard let url = url else {
             return
         }
-        print("WWW URL => " + url.absoluteString)
+        logger("UrlImageModel", "WWW URL => " + url.absoluteString)
         URLSession.shared.dataTask(with: url) { data, response, error in
             guard error == nil else {
-                print(error ?? "unknown error")
+                logger("UrlImageModel", error ?? "unknown error")
                 return
             }
 
             guard let data = data else {
-                print("No data found")
+                logger("UrlImageModel", "No data found")
                 return
             }
 
             DispatchQueue.main.async { [weak self] in
                 guard let loadedImage = UIImage(data: data) else { return }
-                print("WWW URL => " + "LOADED")
+                logger("UrlImageModel", "WWW URL => " + "LOADED")
                 self?.image = loadedImage
                 self?.imageCache[url] = loadedImage
             }

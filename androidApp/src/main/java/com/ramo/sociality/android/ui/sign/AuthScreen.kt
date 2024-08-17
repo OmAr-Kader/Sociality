@@ -147,11 +147,9 @@ fun AuthScreen(appViewModel: AppViewModel, navigateHome: suspend (String) -> Uni
                     )
                 }
             }
-
             Spacer(modifier = Modifier.height(16.dp))
-
             TextButton(
-                onClick = { viewModel.toggleScreen() },
+                onClick = viewModel::toggleScreen,
             ) {
                 AnimatedText(
                     if (state.isLoginScreen) "Don't have an account? Sign Up" else "Already have an account? Login"

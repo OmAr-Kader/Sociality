@@ -40,10 +40,11 @@ struct ToastView: View {
     @Inject
     private var theme: Theme
     
-    var style: ToastStyle
-    var message: String
-    var width = CGFloat.infinity
-    var onCancelTapped: (() -> Void)
+    let style: ToastStyle
+    let message: String
+    let width: CGFloat
+    let backColor: Color?
+    let onCancelTapped: (() -> Void)
     
     var body: some View {
         HStack(alignment: .center, spacing: 12) {
@@ -64,7 +65,7 @@ struct ToastView: View {
         }
         .padding()
         .frame(minWidth: 0, maxWidth: width)
-        .background(RoundedRectangle(cornerRadius: 8).fill(theme.backDarkSec))
+        .background(RoundedRectangle(cornerRadius: 8).fill(backColor ?? theme.backDarkSec))
         .cornerRadius(8)
         .padding(.horizontal, 16)
     }
@@ -74,7 +75,7 @@ struct ToastView: View {
 struct ToastModifier: ViewModifier {
     
     @Binding var toast: Toast?
-    
+    let backColor: Color?
     @State private var workItem: DispatchWorkItem?
     
     func body(content: Content) -> some View {
@@ -96,10 +97,10 @@ struct ToastModifier: ViewModifier {
                 ToastView(
                     style: toast.style,
                     message: toast.message,
-                    width: toast.width
-                ) {
-                    dismissToast()
-                }
+                    width: toast.width,
+                    backColor: backColor,
+                    onCancelTapped: dismissToast
+                )
                 Spacer()
             }
         }
@@ -134,8 +135,8 @@ struct ToastModifier: ViewModifier {
 }
 
 extension View {
-
-  func toastView(toast: Binding<Toast?>) -> some View {
-    self.modifier(ToastModifier(toast: toast))
-  }
+    
+    func toastView(toast: Binding<Toast?>, backColor: Color? = nil) -> some View {
+        self.modifier(ToastModifier(toast: toast, backColor: backColor))
+    }
 }

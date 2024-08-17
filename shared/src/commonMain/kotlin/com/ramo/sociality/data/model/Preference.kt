@@ -8,7 +8,7 @@ open class Preference(
     var value: String,
 ) : io.realm.kotlin.types.RealmObject {
     constructor() : this(org.mongodb.kbson.ObjectId.invoke(), "", "")
-    constructor(ketString: String, value: String) : this(org.mongodb.kbson.ObjectId.invoke(), ketString, value)
+    constructor(keyString: String, value: String) : this(org.mongodb.kbson.ObjectId.invoke(), keyString, value)
     constructor(pref: PreferenceData) : this(if (pref.id.isEmpty()) org.mongodb.kbson.ObjectId.invoke() else org.mongodb.kbson.ObjectId.invoke(pref.id), pref.keyString, pref.value)
 }
 
@@ -17,6 +17,6 @@ data class PreferenceData(
     val keyString: String,
     val value: String,
 ) {
-    constructor(ketString: String, value: String) : this("", ketString, value)
+    constructor(keyString: String, value: String) : this("", keyString, value)
     constructor(pref: Preference) : this(pref._id.toHexString(), pref.keyString, pref.value)
 }

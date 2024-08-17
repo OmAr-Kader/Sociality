@@ -1,22 +1,29 @@
 import SwiftUI
-import shared
 
 @main
 struct iOSApp: App {
 
-    init() {
-        #if DEBUG
-        IosAppModuleKt.doInitKoin(isDebugMode: true)
-        #else
-        IosAppModuleKt.doInitKoin(isDebugMode: false)
-        #endif
-    }
-
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
+    
+    @State var isInjected: Bool = false
     
     var body: some Scene {
         WindowGroup {
-            Main(app: delegate.app)
+            ZStack {
+                if isInjected {
+                    Main(app: delegate.app)
+                } else {
+                    SplashScreen {
+                        await initModule()
+                        let _ = await Task { @MainActor in
+                            delegate.app.findUser { it in
+                                delegate.app.navigateHomeNoAnimation(it != nil ? .HOME_SCREEN_ROUTE : .AUTH_SCREEN_ROUTE)
+                                isInjected.toggle()
+                            }
+                        }.result
+                    }
+                }
+            }
         }
     }
 }

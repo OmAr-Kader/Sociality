@@ -2,8 +2,13 @@ package com.ramo.sociality.di
 
 import org.koin.core.context.startKoin
 
-fun initKoin(isDebugMode: Boolean) {
-    startKoin {
-        modules(appModule(isDebugMode))
+@Suppress("unused")
+suspend fun initKoin(isDebugMode: Boolean) {
+    val module = appModuleSus(isDebugMode)
+    kotlinx.coroutines.coroutineScope {
+        startKoin {
+            modules(module)
+        }
+        Unit
     }
 }

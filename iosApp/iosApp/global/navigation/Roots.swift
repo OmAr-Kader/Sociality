@@ -7,31 +7,31 @@ extension View {
         _ app: AppObserve
     ) -> some View {
         switch target {
-        case .SPLASH_SCREEN_ROUTE :
-            SplashScreen(app: app)
+        /*case .SPLASH_SCREEN_ROUTE :
+            SplashScreen(app: app)*/
         case .AUTH_SCREEN_ROUTE:
-            SplashScreen(app: app)
+            AuthScreen(app: app)
         case .HOME_SCREEN_ROUTE:
-            SplashScreen(app: app)
+            ZStack {}
         case .PROFILE_SCREEN_ROUTE:
-            SplashScreen(app: app)
+            ZStack {}
         case .POST_SCREEN_ROUTE:
-            SplashScreen(app: app)
+            ZStack {}
         case .POST_CREATOR_ROUTE:
-            SplashScreen(app: app)
+            ZStack {}
         case .SEARCH_SCREEN_ROUTE:
-            SplashScreen(app: app)
+            ZStack {}
         case .MESSENGER_SCREEN_ROUTE:
-            SplashScreen(app: app)
+            ZStack {}
         case .CHAT_SCREEN_ROUTE:
-            SplashScreen(app: app)
+            ZStack {}
         }
     }
 }
 
 enum Screen : Hashable {
     
-    case SPLASH_SCREEN_ROUTE
+    //case SPLASH_SCREEN_ROUTE
     
     case AUTH_SCREEN_ROUTE
     case HOME_SCREEN_ROUTE
