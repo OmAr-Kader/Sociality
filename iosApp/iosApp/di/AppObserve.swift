@@ -89,7 +89,6 @@ class AppObserve : ObservableObject {
             }
         }
     }
-
     
     func findUserLive(invoke: @MainActor @escaping (UserBase?) -> Unit) {
         scope.launchBack {
@@ -155,7 +154,7 @@ class AppObserve : ObservableObject {
     }
     
     @MainActor
-    func getArgument<T: ScreenConfig>(screen: Screen) -> T? {
+    func findArg(screen: Screen) -> (any ScreenConfig)? {
         return state.argOf(screen)
     }
     
@@ -212,10 +211,10 @@ class AppObserve : ObservableObject {
             return self
         }
         
-        mutating func argOf<T: ScreenConfig>(_ screen: Screen) -> T? {
+        mutating func argOf(_ screen: Screen) -> (any ScreenConfig)? {
             return args.first { (key: Screen, value: any ScreenConfig) in
                 key == screen
-            } as? T
+            }?.value
         }
         
         mutating func copy<T : ScreenConfig>(_ screen: Screen, _ screenConfig: T) -> Self {

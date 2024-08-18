@@ -21,7 +21,7 @@ struct AuthScreen : View {
     
     var body: some View {
         let state = obs.state
-        FullZStack {
+        ZStack {
             ZStack {
                 VStack {
                     Text(state.isLoginScreen ? "Login" : "Sign Up")
@@ -73,8 +73,8 @@ struct AuthScreen : View {
                             .foregroundColor(theme.textColor)
                     })
                 }.padding(all: 16)
-                LoadingScreen(isLoading: state.isProcess)
             }.toolbar(.hidden)
+            LoadingScreen(isLoading: state.isProcess)
         }.background(theme.background).toastView(toast: $toast, backColor: theme.backDark)
     }
 }

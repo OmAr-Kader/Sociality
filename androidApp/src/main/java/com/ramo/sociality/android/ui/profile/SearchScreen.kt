@@ -24,7 +24,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -37,7 +36,6 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.ramo.sociality.android.global.base.Theme
 import com.ramo.sociality.android.global.base.outlinedTextFieldStyle
 import com.ramo.sociality.android.global.navigation.Screen
@@ -101,10 +99,10 @@ fun SearchScreen(navigateToScreen: suspend (Screen, String) -> Unit, backPress: 
             Spacer(modifier = Modifier.height(16.dp))
             if (state.isSearchHistory) {
                 LazyColumn(modifier = Modifier.fillMaxSize()) {
-                    items(state.searches) { name ->
-                        SearchItem(name = name.searchText, theme) {
-                            viewModel.onSearchQueryChange(name.searchText)
-                            viewModel.doSearch(name.searchText)
+                    items(state.searches) { searchHistory ->
+                        SearchItem(name = searchHistory.searchText, theme) {
+                            viewModel.onSearchQueryChange(searchHistory.searchText)
+                            viewModel.doSearch(searchHistory.searchText)
                         }
                     }
                 }

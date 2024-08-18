@@ -13,7 +13,7 @@ struct iOSApp: App {
                 if isInjected {
                     Main(app: delegate.app)
                 } else {
-                    SplashScreen {
+                    SplashScreen().task {
                         await initModule()
                         let _ = await Task { @MainActor in
                             delegate.app.findUser { it in

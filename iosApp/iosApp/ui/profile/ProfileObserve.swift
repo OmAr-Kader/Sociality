@@ -21,14 +21,14 @@ class ProfileObserve : ObservableObject {
     @Published var state = State()
     
     @MainActor
-    func loadData(userBase: UserBase, userId: String) {
+    func loadData(userBase: UserBase, userId: String, invoke: @MainActor @escaping (User, Friendship, [FriendshipRequest]) -> Unit, invokeMems: @MainActor @escaping ([MemeLord]) -> Unit) {
         scope.launchBack {
             if let user = try? await self.project.profile.getProfileOnUserId(userId: userId) { // Get User
                 await self.fetchMyProfileInfo(myId: userBase.id, userId: userId) { mode, friendShip, requests in
                     self.scope.launchMain {
-                        self.state = self.state.copy(user: user.copy(mode: Int32(mode)), friendShip: friendShip, requests: requests, isProcess: false)
+                        invoke(user.copy(mode: Int32(mode)), friendShip, requests)
                     }
-                    self.loadMemes(userBase: userBase, userId: userId)
+                    self.loadMemes(userBase: userBase, userId: userId, invokeMems: invokeMems)
                 }
             } else {
                 self.setProcess(false)
@@ -36,14 +36,14 @@ class ProfileObserve : ObservableObject {
         }
     }
 
-    private func loadMemes(userBase: UserBase, userId: String) {
+    private func loadMemes(userBase: UserBase, userId: String, invokeMems: @MainActor @escaping ([MemeLord]) -> Unit) {
         scope.launchBack {
             do {
                 if let friends = try? await self.project.friendship.getFriendshipOnId(userId: userId) {
                     let profiles = try? await self.project.profile.getAllProfilesOnUserIds(ids: friends.friends + [userId])
                     try await self.project.post.getAllPostsOnUser(users: profiles ?? [], userId: userBase.id, profileId: userId) { memeLords in
                         self.scope.launchMain {
-                            self.state = self.state.copy(memes: memeLords, isProcess: false)
+                            invokeMems(memeLords)
                         }
                     }
                 } else {
@@ -53,6 +53,16 @@ class ProfileObserve : ObservableObject {
                 self.setProcess(false)
             }
         }
+    }
+    
+    @MainActor
+    func updateUserFrindShipAndRequests(user: User, friendShip: Friendship, requests: [FriendshipRequest]) {
+        self.state = self.state.copy(user: user, friendShip: friendShip, requests: requests, isProcess: false)
+    }
+    
+    @MainActor
+    func updateMemes(memeLords: [MemeLord]) {
+        self.state = self.state.copy(memes: memeLords, isProcess: false)
     }
 
     private func fetchMyProfileInfo(myId: String, userId: String, invoke: @escaping (Int, Friendship, [FriendshipRequest]) -> Void) async {

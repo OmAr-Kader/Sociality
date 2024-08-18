@@ -40,9 +40,9 @@ extension View {
 struct BackButton: View {
 
     let title: String
-    let action: () -> Void
+    let action: @MainActor () -> Void
     
-    init(title: String = "", action: @escaping () -> Void) {
+    init(title: String = "", action: @MainActor @escaping () -> Void) {
         self.title = title
         self.action = action
     }
@@ -85,9 +85,9 @@ struct BackButton: View {
 
 struct BackPressButton: View {
 
-    let action: () -> Void
+    let action: @MainActor () -> Void
     
-    init(action: @escaping () -> Void) {
+    init(action: @MainActor @escaping () -> Void) {
         self.action = action
     }
     

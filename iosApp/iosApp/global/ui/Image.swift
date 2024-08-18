@@ -28,19 +28,21 @@ struct ImageCacheView : View {
     private let urlString: String
     private let isVideoPreview: Bool
     private let contentMode: ContentMode
+    private let errorImage: UIImage?
     @StateObject private var obs: UrlImageModel
     
-    init(_ urlString: String, isVideoPreview: Bool = false, contentMode: ContentMode = .fit) {
+    init(_ urlString: String, isVideoPreview: Bool = false, contentMode: ContentMode = .fit, errorImage: UIImage? = nil) {
         self.urlString = urlString
         self.isVideoPreview = isVideoPreview
         self.contentMode = contentMode
+        self.errorImage = errorImage
         self._obs = StateObject(
             wrappedValue: UrlImageModel(url: URL(string: urlString), isPreview: isVideoPreview)
         )
     }
     
     var body: some View {
-        Image(uiImage: obs.image ?? UIImage())
+        Image(uiImage: obs.image ?? errorImage ?? UIImage())
             .resizable()
             .renderingMode(.original)
             .background(Color.clear)

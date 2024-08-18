@@ -6,14 +6,46 @@ struct Main: View {
     
     @Inject
     private var theme: Theme
+    
+    var navigateTo: @MainActor (Screen) -> Unit {
+        return { screen in
+            app.navigateTo(screen)
+        }
+    }
+    
+    var navigateToScreen: @MainActor (ScreenConfig, Screen) -> Unit {
+        return { args, screen in
+            app.writeArguments(screen, args)
+            app.navigateTo(screen)
+        }
+    }
+    
+    var navigateHome: @MainActor (Screen) -> Unit {
+        return { screen in
+            app.navigateHome(screen)
+        }
+    }
+    
+    var backPress: @MainActor () -> Unit {
+        return {
+            
+        }
+    }
 
+    
+    var screenConfig: @MainActor (Screen) -> (any ScreenConfig)? {
+        return { screen in
+            return app.findArg(screen: screen)
+        }
+    }
+    
     var body: some View {
         //let isSplash = app.state.homeScreen == Screen.SPLASH_SCREEN_ROUTE
         NavigationStack(path: $app.navigationPath) {
             targetScreen(
-                app.state.homeScreen, app
+                app.state.homeScreen, app, navigateTo: navigateTo, navigateToScreen: navigateToScreen, navigateHome: navigateHome, backPress: backPress, screenConfig: screenConfig
             ).navigationDestination(for: Screen.self) { route in
-                targetScreen(route, app)//.toolbar(.hidden, for: .navigationBar)
+                targetScreen(route, app, navigateTo: navigateTo, navigateToScreen: navigateToScreen, navigateHome: navigateHome, backPress: backPress, screenConfig: screenConfig)//.toolbar(.hidden, for: .navigationBar)
             }
         }/*.prepareStatusBarConfigurator(
             isSplash ? theme.background : theme.primary, isSplash, theme.isDarkStatusBarText
@@ -23,11 +55,10 @@ struct Main: View {
 
 struct SplashScreen : View {
 
-    let onTask: @Sendable () async -> Void
-    
     private let theme = Theme(isDarkMode: UITraitCollection.current.userInterfaceStyle.isDarkMode)
     @State private var scale: Double = 1
     @State private var width: CGFloat = 50
+
     var body: some View {
         FullZStack {
             Image(
@@ -43,7 +74,7 @@ struct SplashScreen : View {
                     withAnimation() {
                         width = 150
                     }
-                }.task(onTask)
+                }
         }.background(theme.background)
     }
 }

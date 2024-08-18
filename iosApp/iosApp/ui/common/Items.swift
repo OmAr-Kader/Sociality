@@ -15,11 +15,11 @@ struct PostItem : View {
     
     let meme: MemeLord
     let theme: Theme
-    let navigateToUser: () -> Unit
-    let navigateToImage: (Int) -> Unit
-    let onLikeClicked: () -> Unit
-    let onCommentClicked: () -> Unit
-    let onShareClicked: () -> Unit
+    let navigateToUser: @MainActor () -> Unit
+    let navigateToImage: @MainActor (Int) -> Unit
+    let onLikeClicked: @MainActor () -> Unit
+    let onCommentClicked: @MainActor () -> Unit
+    let onShareClicked: @MainActor () -> Unit
 
     var body: some View {
         let contentPadding = EdgeInsets(top: 5, leading: 15, bottom: 5, trailing: 15)
@@ -27,7 +27,7 @@ struct PostItem : View {
             Spacer()
             VStack {
                 HStack {
-                    ImageCacheView(meme.user.profilePicture, isVideoPreview: false, contentMode: .fit)
+                    ImageCacheView(meme.user.profilePicture, isVideoPreview: false, contentMode: .fit, errorImage: UIImage(named: "profile")?.withTintColor(UIColor(theme.textColor)))
                         .clipShape(Circle())
                         //.cornerRadius(20)
                         .frame(width: 40, height: 40)
@@ -101,74 +101,63 @@ struct CommentBottomSheet : View, KeyboardReadable {
     let memeLord: MemeLord?
     let commentText: String
     let onValueComment: (String) -> Unit
-    let hide: () -> Unit
     let onComment: (MemeLord) -> Unit
-
+    
     @Inject
     private var theme: Theme
     @FocusState private var isFoucesed: Bool
-    private var invisibleTopViewId: String = "TOP_ID"
-
+    private let invisibleTopViewId: String = "TOP_ID"
+    
     var body: some View {
-        /*ScrollViewReader { value in
-        }*/
-        sheet(isPresented: Binding(get: {
-            memeLord != nil
-        }, set: { it in
-            if !it {
-                hide()
-            }
-        })) {
-            NavigationStack {
-                VStack {
+        NavigationStack {
+            VStack {
+                HStack {
                     HStack {
-                        HStack {
-                            TextField("", text: Binding(get: {
-                                commentText
-                            }, set: onValueComment), axis: Axis.vertical
-                            ).onReceive(keyboardPublisher) { isKeyboardVisible in
-                                print("Is keyboard visible? ", isKeyboardVisible)
-                            }.placeholder(when: commentText.isEmpty, alignment: .leading, placeholder: {
-                                Text("Question?")
-                                    .foregroundColor(theme.textHintColor)
-                            }).focused($isFoucesed).multilineTextAlignment(.leading).foregroundColor(theme.textColor).frame(alignment: .leading)
-                                .onTapGesture {
+                        TextField("", text: Binding(get: {
+                            commentText
+                        }, set: onValueComment), axis: Axis.vertical
+                        ).onReceive(keyboardPublisher) { isKeyboardVisible in
+                            print("Is keyboard visible? ", isKeyboardVisible)
+                        }.placeholder(when: commentText.isEmpty, alignment: .leading, placeholder: {
+                            Text("Question?")
+                                .foregroundColor(theme.textHintColor)
+                        }).focused($isFoucesed).multilineTextAlignment(.leading).foregroundColor(theme.textColor).frame(alignment: .leading)
+                            .onTapGesture {
                                 isFoucesed = true
                             }
-                            Button(action: {
-                                isFoucesed = false
-                                if let memeLord = self.memeLord {
-                                    onComment(memeLord)
-                                }
-                            }, label: {
-                                ImageAsset(icon: "send", tint: theme.textGrayColor)
-                                    .frame(width: 30, height: 30)
-                            }).frame(width: 50, height: 50, alignment: .center)
-                        }.padding(leading: 10, trailing: 5)
-                    }.shadow(radius: 3).background(theme.background.margeWithPrimary(0.3))
-                        .clipShape(.rect(topLeadingRadius: 8, topTrailingRadius: 8))
-                    Spacer().frame(height: 16)
-                    ScrollViewReader { value in
-                        ScrollView {
-                            Color.clear
-                                .frame(height: 0)
-                                .id(invisibleTopViewId)
-                            LazyVStack {
-                                if let memeLord = self.memeLord {
-                                    ForEach(Array(memeLord.comments.enumerated()), id: \.offset) { index, date in
-                                        let comment = date as Comment
-                                        CommentItem(comment: comment, theme: theme).id(String(comment.id) + comment.userId + String(comment.postId))
-                                        Divider().padding(leading: 8, trailing: 8)
-                                    }
+                        Button(action: {
+                            isFoucesed = false
+                            if let memeLord = self.memeLord {
+                                onComment(memeLord)
+                            }
+                        }, label: {
+                            ImageAsset(icon: "send", tint: theme.textGrayColor)
+                                .frame(width: 30, height: 30)
+                        }).frame(width: 50, height: 50, alignment: .center)
+                    }.padding(leading: 10, trailing: 5)
+                }.shadow(radius: 3).background(theme.background.margeWithPrimary(0.3))
+                    .clipShape(.rect(topLeadingRadius: 8, topTrailingRadius: 8))
+                Spacer().frame(height: 16)
+                ScrollViewReader { value in
+                    ScrollView {
+                        Color.clear
+                            .frame(height: 0)
+                            .id(invisibleTopViewId)
+                        LazyVStack {
+                            if let memeLord = self.memeLord {
+                                ForEach(Array(memeLord.comments.enumerated()), id: \.offset) { index, date in
+                                    let comment = date as Comment
+                                    CommentItem(comment: comment, theme: theme).id(String(comment.id) + comment.userId + String(comment.postId))
+                                    Divider().padding(leading: 8, trailing: 8)
                                 }
                             }
-                        }.onChange(memeLord?.comments.count ?? 0) { _ in
-                            value.scrollTo(invisibleTopViewId)
                         }
+                    }.onChange(memeLord?.comments.count ?? 0) { _ in
+                        value.scrollTo(invisibleTopViewId)
                     }
-                }.navigationTitle("Comments")
-            }.presentationDetents([.medium, .custom(MyCustomDetent.self)])
-        }.background(theme.backDark)
+                }
+            }.navigationTitle("Comments")
+        }
     }
 }
 
@@ -179,7 +168,7 @@ struct CommentItem : View {
     
     var body: some View {
         HStack {
-            ImageCacheView(comment.userImage, isVideoPreview: false, contentMode: .fit)
+            ImageCacheView(comment.userImage, isVideoPreview: false, contentMode: .fit, errorImage: UIImage(named: "profile")?.withTintColor(UIColor(theme.textColor)))
                 .clipShape(Circle())
                 //.cornerRadius(20)
                 .frame(width: 40, height: 40)
@@ -214,7 +203,7 @@ extension KeyboardReadable {
     }
 }
 
-struct MyCustomDetent: CustomPresentationDetent {
+struct CommentSheetDetent: CustomPresentationDetent {
     static func height(in context: Context) -> CGFloat? {
         if context.dynamicTypeSize.isAccessibilitySize {
             return context.maxDetentValue

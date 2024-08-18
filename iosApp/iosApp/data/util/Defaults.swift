@@ -8,6 +8,14 @@
 
 import shared
 
+extension Chat {
+    
+    func copy(id: Int64? = nil, chartTitle: String? = nil, members: [String]? = nil, chatImage: String? = nil, users: [User]? = nil, chatPic: String? = nil, chatLabel: String? = nil, lastMessage: String? = nil, timestampLastMessage: String? = nil, numberOfLastMessages: Int32? = nil) -> Chat {
+        return Chat(id: id ?? self.id, chartTitle: chartTitle ?? self.chartTitle, members: members ?? self.members, chatImage: chatImage ?? self.chatImage, users: users ?? self.users, chatPic: chatPic ?? self.chatPic, chatLabel: chatLabel ?? self.chatLabel, lastMessage: lastMessage ?? self.lastMessage, timestampLastMessage: timestampLastMessage ?? self.timestampLastMessage, numberOfLastMessages: numberOfLastMessages ?? self.numberOfLastMessages
+        )
+    }
+}
+
 extension Message {
     
     func copy(id: Int64? = nil, chatId: Int64? = nil, senderId: String? = nil, content: String? = nil, date: String? = nil, readersIds: [String]? = nil, isSeen: Bool? = nil, isSender: Bool? = nil, senderName: String? = nil

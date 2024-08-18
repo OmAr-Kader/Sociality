@@ -452,13 +452,18 @@ func forChangePhoto(_ image: @escaping (URL) -> Void) -> ((PhotosPickerItem?) ->
     }
 }
 
+
 struct MultipleFloatingButton: View {
-    let icon: String
-    let theme: Theme
-    let actionArt: () -> Void
-    let actionCourse: () -> Void
-    @State var isExtend: Bool = false
     
+    let listOfFabs: [FabItem]
+    let onItemClicked: (Int) -> Void
+
+    @Inject
+    private var theme: Theme
+    
+    @State
+    private var isExtend: Bool = false
+
     @ViewBuilder var buttonContent: some View {
         ZStack {
             Button(action: {
@@ -466,7 +471,7 @@ struct MultipleFloatingButton: View {
                     isExtend.toggle()
                 }
             }) {
-                ImageAsset(icon: icon, tint: theme.textForPrimaryColor)
+                ImageAsset(icon: "plus", tint: theme.textForPrimaryColor)
                     .padding(15)
                     .rotationEffect(isExtend ? Angle(degrees: -45) : Angle(degrees: 0))
                     .frame(width: 60, height: 60)
@@ -484,49 +489,31 @@ struct MultipleFloatingButton: View {
         ZStack {
             ZStack {
                 VStack {
-                    Button(action: {
-                        actionArt()
-                        withAnimation {
-                            isExtend.toggle()
+                    ForEach(Array(listOfFabs.enumerated()), id: \.offset) { index, date in
+                        let fab = date as FabItem
+                        Button(action: {
+                            onItemClicked(index)
+                            withAnimation {
+                                isExtend.toggle()
+                            }
+                        }) {
+                            HStack {
+                                ImageAsset(icon: fab.icon, tint: theme.textForPrimaryColor)
+                                    .padding(3)
+                                    .frame(width: 25, height: 25)
+                                Text(fab.title)
+                                    .padding(leading: -3)
+                                    .foregroundStyle(theme.textForPrimaryColor)
+                                    .font(.system(size: 14))
+                                    .lineLimit(1)
+                            }.frame(alignment: .center)
                         }
-                    }) {
-                        HStack {
-                            ImageAsset(icon: "plus", tint: theme.textForPrimaryColor)
-                                .padding(3)
-                                .frame(width: 25, height: 25)
-                            Text("Article")
-                                .padding(leading: -3)
-                                .foregroundStyle(theme.textForPrimaryColor)
-                                .font(.system(size: 14))
-                                .lineLimit(1)
-                        }.frame(alignment: .center)
+                        .frame(width: 120, height: 50)
+                        .background(fab.color)
+                        .cornerRadius(10)
+                        .shadow(radius: 10)
+                        Spacer().frame(height: 20)
                     }
-                    .frame(width: 120, height: 50)
-                    .background(theme.secondary)
-                    .cornerRadius(10)
-                    .shadow(radius: 10)
-                    Spacer().frame(height: 20)
-                    Button(action: {
-                        actionCourse()
-                        withAnimation {
-                            isExtend.toggle()
-                        }
-                    }) {
-                        HStack {
-                            ImageAsset(icon: "plus", tint: theme.textForPrimaryColor)
-                                .padding(3)
-                                .frame(width: 25, height: 25)
-                            Text("Course")
-                                .padding(leading: -3)
-                                .foregroundStyle(theme.textForPrimaryColor)
-                                .font(.system(size: 14))
-                                .lineLimit(1)
-                        }.frame(alignment: .center)
-                    }
-                    .frame(width: 120, height: 50)
-                    .background(theme.secondary)
-                    .cornerRadius(10)
-                    .shadow(radius: 10)
                 }.onBottomEnd()
             }.padding(bottom: 100, trailing: 20)
         }
@@ -579,6 +566,12 @@ struct FloatingButton: View {
             .onBottomEnd()
         }.padding(trailing: 20)
     }
+}
+
+struct FabItem {
+    let icon: String
+    let title: String
+    let color: Color
 }
 
 struct UpperNavBar : View {

@@ -22,16 +22,21 @@ class SearchObserve : ObservableObject {
     
     
     @MainActor
-    func loadSearchHistory() {
+    func loadSearchHistory(invoke: @MainActor @escaping ([SearchData]) -> Unit) {
         setMainProcess(true)
         scope.launchBack {
-            try? await self.project.search.getSearchesHistory { search in
+            try? await self.project.search.getSearchesHistory { searches in
                 self.scope.launchMain {
-                    self.state = self.state.copy(searches: search, isSearchHistory: true, isProcess: false)
+                    invoke(searches)
                 }
                 
             }
         }
+    }
+    
+    @MainActor
+    func updateSearches(searches: [SearchData]) {
+        self.state = self.state.copy(searches: searches, isSearchHistory: true, isProcess: false)
     }
     
     @MainActor
@@ -40,17 +45,22 @@ class SearchObserve : ObservableObject {
     }
     
     @MainActor
-    func doSearch(searchText: String) {
+    func doSearch(searchText: String, invoke: @MainActor @escaping ([User]) -> Unit) {
         self.setMainProcess(true)
         self.scope.launchBack {
             if let usersOnSearch = try? await self.project.profile.fetchProfilesOnName(name: searchText) {
                 let search = SearchData(searchText: searchText, date: DateKt.dateNowMills)
                 let _ = try? await self.project.search.updateSearch(search: search, newDate: search.date)
                 self.scope.launchMain {
-                    self.state = self.state.copy(users: usersOnSearch, isSearchHistory: false, isProcess: false)
+                    invoke(usersOnSearch)
                 }
             }
         }
+    }
+    
+    @MainActor
+    func updateUsersOnSearch(usersOnSearch: [User]) {
+        self.state = self.state.copy(users: usersOnSearch, isSearchHistory: false, isProcess: false)
     }
     
     private func setProcess(_ isProcess: Bool) {

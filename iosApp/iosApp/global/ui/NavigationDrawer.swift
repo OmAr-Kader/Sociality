@@ -5,10 +5,13 @@ struct DrawerView<MainContent: View, DrawerContent: View>: View {
 
     @Binding var isOpen: Bool
     let overlayColor: Color
-    let theme: Theme
+
     @ViewBuilder let main: () -> MainContent
     @ViewBuilder let drawer: () -> DrawerContent
 
+    
+    @Inject
+    private var theme: Theme
     private let overlap: CGFloat = 0.7
     private let overlayOpacity = 0.7
     
@@ -35,6 +38,34 @@ struct DrawerView<MainContent: View, DrawerContent: View>: View {
                     .ignoresSafeArea(.all, edges: [.bottom])
                     .transition(.move(edge: .leading))
             }
+        }
+    }
+}
+
+struct DrawerContainer<DrawerContent: View> : View {
+    
+    @ViewBuilder let main: () -> DrawerContent
+    
+    @Inject
+    private var theme: Theme
+
+    var body: some View {
+        VStack {
+            HStack {
+                VStack {
+                    main()
+                    Spacer()
+                }.frame(width: 250)
+                    .background(theme.backDark)
+                    .onStart()
+            }.frame(width: 250).clipShape(
+                .rect(
+                    topLeadingRadius: 0,
+                    bottomLeadingRadius: 0,
+                    bottomTrailingRadius: 20,
+                    topTrailingRadius: 20
+                )
+            )
         }
     }
 }

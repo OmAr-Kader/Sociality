@@ -20,7 +20,7 @@ class HomeObserve : ObservableObject {
     @Published var state = State()
    
     @MainActor
-    func loadMemes(userId: String) {
+    func loadMemes(userId: String, invoke: @MainActor @escaping ([MemeLord]) -> Unit) {
         scope.launchBack {
             if let friendship = try? await self.project.friendship.getFriendshipOnId(userId: userId) {
                 let userIds = friendship.friends + [userId]
@@ -28,7 +28,7 @@ class HomeObserve : ObservableObject {
                     do {
                         try await self.project.post.getAllPostsOnUserFriends(users: profiles, userId: userId) { memeLords in
                             self.scope.launchMain {
-                                self.state = self.state.copy(memes: memeLords, isProcess: false)
+                                invoke(memeLords)
                             }
                         }
                     } catch {
@@ -42,7 +42,11 @@ class HomeObserve : ObservableObject {
             }
         }
     }
-
+    
+    @MainActor
+    func updateMemes(memeLords: [MemeLord]) {
+        self.state = self.state.copy(memes: memeLords, isProcess: false)
+    }
     
     @MainActor
     func onLikeClicked(userId: String, postId: Int64, isLiked: Bool) {
