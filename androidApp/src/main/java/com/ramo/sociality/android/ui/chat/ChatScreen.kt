@@ -173,6 +173,7 @@ fun ChatScreen(
                         modifier = Modifier
                             .fillMaxWidth(),
                         shape = RoundedCornerShape(8.dp),
+                        placeholder = { Text("Message...") },
                         trailingIcon = {
                             IconButton(
                                 modifier = Modifier
@@ -223,7 +224,12 @@ fun ChatBubble(
             modifier = Modifier
                 .wrapContentWidth()
                 .defaultMinSize(minWidth = 200.dp)
-                .padding(top = 8.dp, bottom = 8.dp, start = if (message.isSender) 40.dp else 8.dp, end = if (message.isSender) 8.dp else 40.dp)
+                .padding(
+                    top = 8.dp,
+                    bottom = 8.dp,
+                    start = if (message.isSender) 40.dp else 8.dp,
+                    end = if (message.isSender) 8.dp else 40.dp
+                )
                 .align(if (message.isSender) Alignment.End else Alignment.Start)
         ) {
             if (showSenderName && !message.isSender) {
@@ -236,7 +242,9 @@ fun ChatBubble(
             Box(
                 modifier = Modifier
                     .background(
-                        color = if (message.isSender) theme.backgroundPrimary else theme.background.darker(0.3F),
+                        color = if (message.isSender) theme.backgroundPrimary else theme.background.darker(
+                            0.3F
+                        ),
                         shape = RoundedCornerShape(8.dp)
                     )
                     .padding(8.dp)
