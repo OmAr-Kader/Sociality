@@ -12,6 +12,7 @@
 		07065AEB2C6CFB4100280500 /* IOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07065AEA2C6CFB4100280500 /* IOSApp.swift */; };
 		07065AF42C6D0D1900280500 /* AuthObserve.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07065AF32C6D0D1900280500 /* AuthObserve.swift */; };
 		07065AF92C6D1DA000280500 /* Defaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07065AF82C6D1DA000280500 /* Defaults.swift */; };
+		070679492C738813001A2275 /* Zoomable in Frameworks */ = {isa = PBXBuildFile; productRef = 070679482C738813001A2275 /* Zoomable */; };
 		07557E9B2C70F91700044A96 /* Swinject in Frameworks */ = {isa = PBXBuildFile; productRef = 07557E9A2C70F91700044A96 /* Swinject */; };
 		07C107432C6F9A440032F3E6 /* SearchObserve.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C107422C6F9A440032F3E6 /* SearchObserve.swift */; };
 		07C107452C6F9A6B0032F3E6 /* AuthScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C107442C6F9A6B0032F3E6 /* AuthScreen.swift */; };
@@ -120,6 +121,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				07557E9B2C70F91700044A96 /* Swinject in Frameworks */,
+				070679492C738813001A2275 /* Zoomable in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -357,6 +359,7 @@
 			name = iosApp;
 			packageProductDependencies = (
 				07557E9A2C70F91700044A96 /* Swinject */,
+				070679482C738813001A2275 /* Zoomable */,
 			);
 			productName = iosApp;
 			productReference = 7555FF7B242A565900829871 /* iosApp.app */;
@@ -389,6 +392,7 @@
 			mainGroup = 7555FF72242A565900829871;
 			packageReferences = (
 				07557E992C70F91700044A96 /* XCRemoteSwiftPackageReference "Swinject" */,
+				070679472C738813001A2275 /* XCRemoteSwiftPackageReference "Zoomable" */,
 			);
 			productRefGroup = 7555FF7C242A565900829871 /* Products */;
 			projectDirPath = "";
@@ -696,6 +700,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		070679472C738813001A2275 /* XCRemoteSwiftPackageReference "Zoomable" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ryohey/Zoomable.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 		07557E992C70F91700044A96 /* XCRemoteSwiftPackageReference "Swinject" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Swinject/Swinject";
@@ -707,6 +719,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		070679482C738813001A2275 /* Zoomable */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 070679472C738813001A2275 /* XCRemoteSwiftPackageReference "Zoomable" */;
+			productName = Zoomable;
+		};
 		07557E9A2C70F91700044A96 /* Swinject */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 07557E992C70F91700044A96 /* XCRemoteSwiftPackageReference "Swinject" */;

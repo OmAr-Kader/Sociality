@@ -101,7 +101,7 @@ class HomeObserve : ObservableObject {
     
     @MainActor
     func onCommentClicked(memeLord: MemeLord) {
-        self.state = self.state.copy(commentMeme: memeLord, commentText: "")
+        self.state = self.state.copy(commentMeme: memeLord, isComment: true, commentText: "")
     }
 
     @MainActor
@@ -116,7 +116,7 @@ class HomeObserve : ObservableObject {
 
     @MainActor
     func hide() {
-        self.state = self.state.copy(commentMeme: nil, commentText: "")
+        self.state = self.state.copy(commentMeme: nil, isComment: false, commentText: "")
     }
 
     func signOut(invoke: @escaping () -> Void, failed: @escaping () -> Void) {
@@ -180,6 +180,7 @@ class HomeObserve : ObservableObject {
         
         private(set) var memes: [MemeLord] = []
         private(set) var commentMeme: MemeLord? = nil
+        private(set) var isComment: Bool = false
         private(set) var commentText: String = ""
         private(set) var dummy: Int = 0
         private(set) var isProcess: Bool = true
@@ -189,6 +190,7 @@ class HomeObserve : ObservableObject {
         mutating func copy(
             memes: [MemeLord]? = nil,
             commentMeme: MemeLord? = nil,
+            isComment: Bool? = nil,
             commentText: String? = nil,
             dummy: Int? = nil,
             isProcess: Bool? = nil,
@@ -196,6 +198,7 @@ class HomeObserve : ObservableObject {
         ) -> Self {
             self.memes = memes ?? self.memes
             self.commentMeme = commentMeme ?? self.commentMeme
+            self.isComment = isComment ?? self.isComment
             self.commentText = commentText ?? self.commentText
             self.dummy = dummy ?? self.dummy
             self.isProcess = isProcess ?? self.isProcess

@@ -16,9 +16,14 @@ struct iOSApp: App {
                     SplashScreen().task {
                         await initModule()
                         let _ = await Task { @MainActor in
-                            delegate.app.findUser { it in
-                                delegate.app.navigateHomeNoAnimation(it != nil ? .HOME_SCREEN_ROUTE : .AUTH_SCREEN_ROUTE)
-                                isInjected.toggle()
+                            delegate.app.findUserLive { it in
+                                logger(String(isInjected))
+                                if !isInjected {
+                                    withAnimation {
+                                        delegate.app.navigateHomeNoAnimation(it != nil ? .HOME_SCREEN_ROUTE : .AUTH_SCREEN_ROUTE)
+                                        isInjected.toggle()
+                                    }
+                                }
                             }
                         }.result
                     }

@@ -478,8 +478,7 @@ struct MultipleFloatingButton: View {
             }
             .tint(theme.textForPrimaryColor)
             .frame(width: 60, height: 60)
-            .background(theme.primary)
-            .cornerRadius(30)
+            .background(RoundedRectangle(cornerRadius: 30).fill(theme.primary))
             .shadow(radius: 10)
             .onBottomEnd()
         }.padding(trailing: 20)
@@ -489,8 +488,8 @@ struct MultipleFloatingButton: View {
         ZStack {
             ZStack {
                 VStack {
-                    ForEach(Array(listOfFabs.enumerated()), id: \.offset) { index, date in
-                        let fab = date as FabItem
+                    ForEach(Array(listOfFabs.enumerated()), id: \.offset) { index, data in
+                        let fab = data as FabItem
                         Button(action: {
                             onItemClicked(index)
                             withAnimation {
@@ -509,8 +508,7 @@ struct MultipleFloatingButton: View {
                             }.frame(alignment: .center)
                         }
                         .frame(width: 120, height: 50)
-                        .background(fab.color)
-                        .cornerRadius(10)
+                        .background(RoundedRectangle(cornerRadius: 10).fill(fab.color))
                         .shadow(radius: 10)
                         Spacer().frame(height: 20)
                     }
@@ -560,8 +558,7 @@ struct FloatingButton: View {
             }
             .tint(theme.textForPrimaryColor)
             .frame(width: 60, height: 60)
-            .background(theme.primary)
-            .cornerRadius(30)
+            .background(RoundedRectangle(cornerRadius: 30).fill(theme.primary))
             .shadow(radius: 10)
             .onBottomEnd()
         }.padding(trailing: 20)
@@ -912,8 +909,7 @@ struct BoxGroupStyle: GroupBoxStyle {
         configuration.content
             .padding(.top, 30)
             .padding(20)
-            .background(color)
-            .cornerRadius(20)
+            .background(RoundedRectangle(cornerRadius: 20).fill(color))
             .overlay(
                 configuration.label.padding(10),
                 alignment: .topLeading

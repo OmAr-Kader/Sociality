@@ -39,7 +39,7 @@ struct Theme {
             self.textForPrimaryColor = Color.black
             self.textGrayColor = Color(red: 143 / 255, green: 143 / 255, blue: 143 / 255)
             self.error = Color(red: 1, green: 21 / 255, blue: 21 / 255)
-            self.textHintColor = Color(red: 204 / 255, green: 204 / 255, blue: 204 / 255)
+            self.textHintColor = Color(red: 204 / 255, green: 204 / 255, blue: 204 / 255) // Color.LightGray
             self.pri = Color(red: 102 / 255, green: 158 / 255, blue: 1)
             self.textHintAlpha = UIColor(red: 175 / 255, green: 175 / 255, blue: 175 / 255, alpha: 0.5).toC
             self.backDarkAlpha = UIColor(red: 31 / 255, green: 31 / 255, blue: 31 / 255, alpha: 0.5).toC
@@ -59,7 +59,7 @@ struct Theme {
             self.textForPrimaryColor = Color.black
             self.textGrayColor = Color(red: 112 / 255, green: 112 / 255, blue: 112 / 255)
             self.error = Color(red: 155 / 255, green: 0, blue: 0)
-            self.textHintColor = Color(red: 68 / 255, green: 68 / 255, blue: 68 / 255)
+            self.textHintColor = Color(red: 68 / 255, green: 68 / 255, blue: 68 / 255) // Color.DarkGray
             self.pri = Color(red: 102 / 255, green: 158 / 255, blue: 1)
             self.textHintAlpha = UIColor(red: 80 / 255, green: 80 / 255, blue: 80 / 255, alpha: 0.5).toC
             self.backDarkAlpha = UIColor(red: 241 / 255, green: 241 / 255, blue: 241 / 255, alpha: 0.5).toC

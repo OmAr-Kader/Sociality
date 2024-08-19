@@ -19,13 +19,12 @@ class AppObserve : ObservableObject {
     private var preferences: [PreferenceData] = []
     private var prefsTask: Task<Void, Error>? = nil
     private var job: Task<Void, Error>? = nil
+    private var userJob: Task<Void, Error>? = nil
     
     @MainActor
     var navigateHome: (Screen) -> Unit {
         return { screen in
-            withAnimation {
-                self.state = self.state.copy(homeScreen: screen)
-            }
+            self.state = self.state.copy(homeScreen: screen)
             return ()
         }
     }
@@ -90,15 +89,19 @@ class AppObserve : ObservableObject {
         }
     }
     
+    @MainActor
+    func updateUserBase(userBase: UserBase) {
+        state = state.copy(userBase: userBase)
+    }
+    
     func findUserLive(invoke: @MainActor @escaping (UserBase?) -> Unit) {
-        scope.launchBack {
+        userJob = scope.launchBack {
             do {
                 try await AuthKt.fetchSupaBaseUser { userBase, status in
-                    let _ = logger("fetchSupaBaseUser", "fetchSupaBaseUser")
                     guard let userBase = userBase else {
-                        let _ = logger("fetchSupaBaseUser", (userBase?.id ?? "nil"))
-                        if (status === SessionStatusDataNotAuthenticated()) {
+                        if (status as? SessionStatusDataNotAuthenticated) != nil {
                             self.scope.launchMain {
+                                self.userJob?.cancel()
                                 invoke(nil)
                             }
                         }
@@ -112,6 +115,7 @@ class AppObserve : ObservableObject {
                             let user = UserBase(id: userBase.id, username: userBase.username, email: userBase.email, name: name ?? "", profilePicture: profileImage ?? "")
                             self.scope.launchMain {
                                 self.state = self.state.copy(userBase: user)
+                                self.userJob?.cancel()
                                 invoke(user)
                             }
                         }
@@ -120,6 +124,7 @@ class AppObserve : ObservableObject {
             } catch {
                 logger("findUserLive", error.localizedDescription)
                 self.scope.launchMain {
+                    self.userJob?.cancel()
                     invoke(nil)
                 }
             }
@@ -226,6 +231,8 @@ class AppObserve : ObservableObject {
     deinit {
         prefsTask?.cancel()
         prefsTask = nil
+        userJob?.cancel()
+        userJob = nil
         scope.deInit()
     }
     

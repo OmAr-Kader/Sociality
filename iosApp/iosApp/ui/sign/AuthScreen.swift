@@ -38,20 +38,16 @@ struct AuthScreen : View {
                     OutlinedSecureField(text: state.password, onChange: obs.setPassword, hint: "Password", isError: false, errorMsg: "Password", theme: theme, cornerRadius: 12)
                     Button(action: {
                         if state.isLoginScreen {
-                            obs.loginUser {
+                            obs.loginUser { user in
+                                app.updateUserBase(userBase: user)
                                 app.navigateHome(.HOME_SCREEN_ROUTE)
                             } failed: {
                                 toast = Toast(style: .error, message: "Failed")
                             }
                         } else {
-                            obs.createNewUser {
-                                app.findUser { it in
-                                    if (it != nil) {
-                                        app.navigateHome(.HOME_SCREEN_ROUTE)
-                                    } else {
-                                        toast = Toast(style: .error, message: "Failed")
-                                    }
-                                }
+                            obs.createNewUser { user in
+                                app.updateUserBase(userBase: user)
+                                app.navigateHome(.HOME_SCREEN_ROUTE)
                             } failed: {
                                 toast = Toast(style: .error, message: "Failed")
                             }
@@ -61,8 +57,7 @@ struct AuthScreen : View {
                             .font(.headline)
                             .foregroundColor(Color.black)
                     }).padding()
-                        .background(theme.primary)
-                        .cornerRadius(15)
+                        .background(RoundedRectangle(cornerRadius: 15).fill(theme.primary))
                     Spacer().frame(height: 16)
                     Button(action: {
                         withAnimation {

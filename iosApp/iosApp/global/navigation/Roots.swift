@@ -22,15 +22,15 @@ extension View {
         case .PROFILE_SCREEN_ROUTE:
             ProfileScreen(userBase: app.state.userBase ?? UserBase(), screenConfig: screenConfig, navigateToScreen: navigateToScreen, backPress: backPress)
         case .POST_SCREEN_ROUTE:
-            ZStack {}
+            PostScreen(screenConfig: screenConfig, backPress: backPress)
         case .POST_CREATOR_ROUTE:
-            ZStack {}
+            PostCreatorScreen(userBase: app.state.userBase ?? UserBase(), backPress: backPress)
         case .SEARCH_SCREEN_ROUTE:
             SearchScreen(navigateToScreen: navigateToScreen, backPress: backPress)
         case .MESSENGER_SCREEN_ROUTE:
-            ZStack {}
+            MessengerScreen(userBase: app.state.userBase ?? UserBase(), navigateToScreen: navigateToScreen, backPress: backPress)
         case .CHAT_SCREEN_ROUTE:
-            ZStack {}
+            ChatScreen(userBase: app.state.userBase ?? UserBase(), screenConfig: screenConfig, backPress: backPress)
         }
     }
 }
@@ -52,16 +52,13 @@ enum Screen : Hashable {
 
 protocol ScreenConfig {}
 
-struct SplashConfig: ScreenConfig {
-    
-}
-
 struct ProfileRoute : ScreenConfig {
     let userId: String
 }
 
 struct PostRoute: ScreenConfig {
     let postMedia: [PostMedia]
+    let pos: Int
 }
 
 struct ChatRoute : ScreenConfig {

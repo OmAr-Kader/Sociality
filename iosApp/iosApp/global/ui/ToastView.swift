@@ -66,7 +66,6 @@ struct ToastView: View {
         .padding()
         .frame(minWidth: 0, maxWidth: width)
         .background(RoundedRectangle(cornerRadius: 8).fill(backColor ?? theme.backDarkSec))
-        .cornerRadius(8)
         .padding(.horizontal, 16)
     }
 }

@@ -217,7 +217,7 @@ class ProfileObserve : ObservableObject {
 
     @MainActor
     func onCommentClicked(memeLord: MemeLord) {
-        self.state = self.state.copy(commentMeme: memeLord, commentText: "")
+        self.state = self.state.copy(commentMeme: memeLord, isComment: true, commentText: "")
     }
 
     @MainActor
@@ -227,7 +227,7 @@ class ProfileObserve : ObservableObject {
 
     @MainActor
     func hide() {
-        self.state = self.state.copy(commentMeme: nil, commentText: "")
+        self.state = self.state.copy(commentMeme: nil, isComment: false, commentText: "")
     }
 
     @MainActor
@@ -258,6 +258,7 @@ class ProfileObserve : ObservableObject {
         private(set) var requests: [FriendshipRequest] = []
         private(set) var memes: [MemeLord] = []
         private(set) var commentMeme: MemeLord? = nil
+        private(set) var isComment: Bool = false
         private(set) var commentText: String = ""
         private(set) var dummy: Int = 0
         private(set) var isProcess: Bool = true
@@ -270,6 +271,7 @@ class ProfileObserve : ObservableObject {
             requests: [FriendshipRequest]? = nil,
             memes: [MemeLord]? = nil,
             commentMeme: MemeLord? = nil,
+            isComment: Bool? = nil,
             commentText: String? = nil,
             dummy: Int? = nil,
             isProcess: Bool? = nil,
@@ -280,6 +282,7 @@ class ProfileObserve : ObservableObject {
             self.requests = requests ?? self.requests
             self.memes = memes ?? self.memes
             self.commentMeme = commentMeme ?? self.commentMeme
+            self.isComment = isComment ?? self.isComment
             self.commentText = commentText ?? self.commentText
             self.dummy = dummy ?? self.dummy
             self.isProcess = isProcess ?? self.isProcess

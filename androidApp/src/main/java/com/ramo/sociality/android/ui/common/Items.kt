@@ -175,6 +175,7 @@ fun LazyItemScope.PostItem(
             }
             Spacer(modifier = Modifier.height(8.dp))
             Row(verticalAlignment = Alignment.CenterVertically) {
+                Spacer(modifier = Modifier.width(5.dp))
                 Text(text = "${meme.likes.size} likes", style = MaterialTheme.typography.bodySmall, color = theme.textHintColor)
                 Spacer(modifier = Modifier.width(16.dp))
                 Text(text = "${meme.comments.size} comments", style = MaterialTheme.typography.bodySmall, color = theme.textHintColor)

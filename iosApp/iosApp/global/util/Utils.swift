@@ -1,6 +1,7 @@
 import Foundation
 import shared
 import os
+import SwiftUI
 
 typealias Unit = Void
 typealias Long = Int64
@@ -255,4 +256,13 @@ protocol ForData : Identifiable, Decodable, Hashable {
 
 protocol ForSubData : Decodable, Hashable {
     
+}
+
+
+func textDirection(for text: String) -> LayoutDirection {
+    // A simple way to detect text direction
+    let rtlLanguages = ["ar", "he", "fa", "ur"]
+    let languageCode = Locale.current.language.languageCode?.identifier ?? "en"
+    
+    return rtlLanguages.contains(languageCode) ? .rightToLeft : .leftToRight
 }

@@ -22,13 +22,15 @@ struct Main: View {
     
     var navigateHome: @MainActor (Screen) -> Unit {
         return { screen in
-            app.navigateHome(screen)
+            withAnimation {
+                app.navigateHome(screen)
+            }
         }
     }
     
     var backPress: @MainActor () -> Unit {
         return {
-            
+            app.backPress()
         }
     }
 

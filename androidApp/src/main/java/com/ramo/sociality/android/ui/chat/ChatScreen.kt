@@ -230,7 +230,7 @@ fun ChatBubble(
                 Text(
                     text = message.senderName,
                     style = MaterialTheme.typography.titleSmall,
-                    color = Color(143, 143, 143)
+                    color = theme.textHintColor
                 )
             }
             Box(
@@ -245,7 +245,7 @@ fun ChatBubble(
                     Text(
                         text = message.content,
                         style = MaterialTheme.typography.bodyMedium.copy(textDirection = TextDirection.Content),
-                        color = Color.White
+                        color = theme.textColor
                     )
                     Row(
                         horizontalArrangement = Arrangement.End,
@@ -254,7 +254,7 @@ fun ChatBubble(
                         Text(
                             text = message.timestamp,
                             style = MaterialTheme.typography.labelSmall,
-                            color = Color.LightGray
+                            color = theme.textGrayColor
                         )
                         Spacer(modifier = Modifier.width(4.dp))
                         if (message.isSender) {
@@ -262,7 +262,7 @@ fun ChatBubble(
                                 modifier = Modifier.height(20.dp),
                                 imageVector = rememberDoneAll(), // if (message.isSeen) rememberDoneAll() else rememberDone()
                                 contentDescription = if (message.isSeen) "Seen" else "Sent",
-                                tint = if (message.isSeen) Color(0xFF4FC3F7) else Color.LightGray
+                                tint = if (message.isSeen) Color.Blue else theme.textGrayColor
                             )
                         }
                     }

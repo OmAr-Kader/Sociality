@@ -41,12 +41,12 @@ struct HomeScreen : View {
                     }
                     ScrollView {
                         LazyVStack {
-                            ForEach(Array(state.memes.enumerated()), id: \.offset) { index, date in
-                                let meme = date as MemeLord
+                            ForEach(Array(state.memes.enumerated()), id: \.offset) { index, data in
+                                let meme = data as MemeLord
                                 PostItem(meme: meme, theme: theme) {
                                     navigateToScreen(ProfileRoute(userId: meme.user.userId), .PROFILE_SCREEN_ROUTE)
                                 } navigateToImage: { it in
-                                    navigateToScreen(PostRoute(postMedia: meme.post.postMedia), .POST_SCREEN_ROUTE)
+                                    navigateToScreen(PostRoute(postMedia: meme.post.postMedia, pos: it), .POST_SCREEN_ROUTE)
                                 } onLikeClicked: {
                                     obs.onLikeClicked(userId: userBase.id, postId: meme.post.id, isLiked: meme.isLiked)
                                 } onCommentClicked: {
@@ -58,11 +58,10 @@ struct HomeScreen : View {
                         }
                     }
                 }.sheet(isPresented: Binding(get: {
-                    state.commentMeme != nil
+                    state.isComment
                 }, set: { it in
-                    if !it {
-                        obs.hide()
-                    }
+                    logger("----", String(it))
+                    obs.hide()
                 })) {
                     CommentBottomSheet(memeLord: state.commentMeme, commentText: state.commentText, onValueComment: obs.onValueComment, onComment: { it in
                         obs.onComment(userBase: userBase, postId: it.post.id) {
@@ -129,7 +128,7 @@ struct BarMainScreen : View {
             HStack {
                 HStack {
                     Button(action: openDrawer, label: {
-                        ImageAsset(icon: "menu", tint: theme.textColor).frame(width: 50, height: 50)
+                        ImageAsset(icon: "menu", tint: theme.textColor).frame(width: 35, height: 25)
                     }).padding()
                     Spacer().frame(width: 5)
                     Image(
@@ -137,8 +136,7 @@ struct BarMainScreen : View {
                             named: "sociality"
                         ) ?? UIImage()
                     ).resizable()
-                        .renderingMode(.template)
-                        .background(Color.clear)
+                        .renderingMode(.original)
                         .imageScale(.medium)
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 40, height: 40)
@@ -146,14 +144,15 @@ struct BarMainScreen : View {
                 Spacer()
                 HStack {
                     ImageAsset(icon: "search", tint: theme.textColor)
+                        .onTapGesture(perform: onSearch)
+                        .padding(all: 8)
                         .frame(width: 40, height: 40)
                         .background(Circle().fill(theme.backDark))
-                        .padding(all: 8)
                     Spacer().frame(width: 10)
-                    ImageCacheView(profilePicture, isVideoPreview: false, contentMode: .fit, errorImage: UIImage(named: "profile")?.withTintColor(UIColor(theme.textColor)))
-                        .clipShape(Circle())
-                        //.cornerRadius(20)
+                    ImageCacheView(profilePicture, isVideoPreview: false, contentMode: .fill, errorImage: UIImage(named: "profile")?.withTintColor(UIColor(theme.textColor)))
                         .frame(width: 40, height: 40)
+                        .clipShape(Circle())
+                        .onTapGesture(perform: onProfile)
                     Spacer().frame(width: 10)
                 }
             }.padding().frame(height: 60).background(theme.background)
@@ -164,6 +163,10 @@ struct BarMainScreen : View {
                 bottomTrailingRadius: 15,
                 topTrailingRadius: 0
             )
-        ).shadow(color: theme.primary, radius: 15)
+        ).background(
+            theme.background
+                .shadow(color: theme.primary, radius: 10, x: 0, y: 0)
+                .mask(Rectangle().padding(.bottom, -20))
+        )
     }
 }

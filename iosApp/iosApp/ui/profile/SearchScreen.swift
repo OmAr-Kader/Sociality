@@ -16,7 +16,8 @@ struct SearchScreen : View {
     
     @Inject
     private var theme: Theme
-    
+    @FocusState private var isFoucesed: Bool
+
     @StateObject private var obs: SearchObserve = SearchObserve()
     
     var body: some View {
@@ -28,12 +29,20 @@ struct SearchScreen : View {
                         backPress()
                     }
                     HStack {
-                        OutlinedTextField(text: state.searchText, onChange: obs.onSearchQueryChange, hint: "Search Users", isError: false, errorMsg: "Shouldn't be empty", theme: theme, cornerRadius: 12, lineLimit: 1, keyboardType: UIKeyboardType.default, backColor: theme.background)
+                        OutlinedTextField(text: state.searchText, onChange: obs.onSearchQueryChange, hint: "Search Users", isError: false, errorMsg: "Shouldn't be empty", theme: theme, cornerRadius: 12, lineLimit: 1, keyboardType: UIKeyboardType.default, backColor: theme.background
+                        ).environment(\.layoutDirection, textDirection(for: state.searchText))// TEMP Solutio
                         Spacer()
                         ImageAsset(icon: "search", tint: theme.textColor)
+                            .onTapGesture {
+                                obs.doSearch(searchText: state.searchText) { usersOnSearch in
+                                    withAnimation {
+                                        obs.updateUsersOnSearch(usersOnSearch: usersOnSearch)
+                                    }
+                                }
+                            }
+                            .padding(all: 8)
                             .frame(width: 40, height: 40)
                             .background(Circle().fill(theme.backDark))
-                            .padding(all: 8)
                     }.padding(leading: 7, trailing: 7)
                 }
                 Spacer().frame(height: 16)
@@ -65,14 +74,16 @@ struct SearchScreen : View {
                         }
                     }
                 }
-            }.padding()
-        }.background(theme.background).onAppear {
-            obs.loadSearchHistory { searches in
-                withAnimation {
-                    obs.updateSearches(searches: searches)
+            }
+        }.background(theme.background)
+            .toolbar(.hidden)
+            .onAppear {
+                obs.loadSearchHistory { searches in
+                    withAnimation {
+                        obs.updateSearches(searches: searches)
+                    }
                 }
             }
-        }
     }
 }
 
@@ -83,12 +94,15 @@ struct SearchItem : View {
     let onClick: () -> Unit
 
     var body: some View {
-        HStack {
-            ImageAsset(icon: "search", tint: theme.textColor)
-                .frame(width: 35, height: 35)
-            Spacer().frame(width: 8)
-            Text(name).foregroundStyle(theme.textColor)
-        }.padding(8)
+        VStack {
+            HStack {
+                ImageAsset(icon: "search", tint: theme.textColor)
+                    .frame(width: 35, height: 35)
+                Spacer().frame(width: 8)
+                Text(name).foregroundStyle(theme.textColor)
+            }.padding(8).onStart()
+            Divider().padding(leading: 15, trailing: 15)
+        }.padding(8).onStart()
     }
 }
 
@@ -99,15 +113,16 @@ struct UserItem : View {
     let onClick: () -> Unit
     
     var body: some View {
-        HStack {
-            ImageCacheView(user.profilePicture, isVideoPreview: false, contentMode: .fit, errorImage: UIImage(named: "profile")?.withTintColor(UIColor(theme.textColor)))
-                .clipShape(Circle())
-                //.cornerRadius(20)
-                .frame(width: 40, height: 40)
-            Spacer().frame(width: 8)
-            Text(user.name).foregroundStyle(theme.textColor)
+        VStack {
+            HStack {
+                ImageCacheView(user.profilePicture, isVideoPreview: false, contentMode: .fill, errorImage: UIImage(named: "profile")?.withTintColor(UIColor(theme.textColor)))
+                    .frame(width: 40, height: 40)
+                    .clipShape(Circle())
+                Spacer().frame(width: 8)
+                Text(user.name).foregroundStyle(theme.textColor)
+            }.padding(8).onStart()
             Divider().padding(leading: 15, trailing: 15)
-        }.padding(8)
+        }.padding(8).onStart()
     }
 }
 

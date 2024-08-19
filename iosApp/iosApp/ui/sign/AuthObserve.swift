@@ -35,7 +35,7 @@ class AuthObserve : ObservableObject {
         self.state = self.state.copy(isLoginScreen: !state.isLoginScreen)
     }
     
-    @MainActor func createNewUser(invoke: @MainActor @escaping () -> Unit, failed: @MainActor @escaping () -> Unit) {
+    @MainActor func createNewUser(invoke: @MainActor @escaping (UserBase) -> Unit, failed: @MainActor @escaping () -> Unit) {
         let state = state
         setMainProcess(true)
         scope.launchBack {
@@ -65,7 +65,7 @@ class AuthObserve : ObservableObject {
     }
     
     
-    private func doSignUp(state: State, invoke: @MainActor @escaping () -> Void, failed: @MainActor @escaping () -> Void) async {
+    private func doSignUp(state: State, invoke: @MainActor @escaping (UserBase) -> Void, failed: @MainActor @escaping () -> Void) async {
         if let userBase = try? await AuthKt.userInfo() {
             let user = User().copy(
                 userId: userBase.id,
@@ -81,7 +81,7 @@ class AuthObserve : ObservableObject {
                     
                     scope.launchMain {
                         self.setMainProcess(false)
-                        invoke()
+                        invoke(userBase.copy(name: user.name, profilePicture: user.profilePicture))
                     }
                 } catch {
                     scope.launchMain {
@@ -104,7 +104,7 @@ class AuthObserve : ObservableObject {
     }
     
     @MainActor
-    func loginUser(invoke: @MainActor @escaping () -> Void, failed: @MainActor @escaping () -> Void) {
+    func loginUser(invoke: @MainActor @escaping (UserBase) -> Void, failed: @MainActor @escaping () -> Void) {
         let state = state
         setMainProcess(true)
         scope.launchBack {
@@ -113,7 +113,7 @@ class AuthObserve : ObservableObject {
     }
 
     
-    private func doLogin(state: State, invoke: @MainActor @escaping () -> Void, failed: @MainActor @escaping () -> Void) async {
+    private func doLogin(state: State, invoke: @MainActor @escaping (UserBase) -> Void, failed: @MainActor @escaping () -> Void) async {
         do {
             try await AuthKt.signInAuth(emailUser: state.email, passwordUser: state.password, invoke: {
                 self.scope.launchBack {
@@ -125,18 +125,18 @@ class AuthObserve : ObservableObject {
                                 
                                 self.scope.launchMain {
                                     self.setMainProcess(false)
-                                    invoke()
+                                    invoke(userBase.copy(name: user.name, profilePicture: user.profilePicture))
                                 }
                             } catch {
                                 self.scope.launchMain {
                                     self.setMainProcess(false)
-                                    invoke()
+                                    invoke(userBase.copy(name: user.name, profilePicture: user.profilePicture))
                                 }
                             }
                         } else {
                             self.scope.launchMain {
                                 self.setMainProcess(false)
-                                invoke()
+                                invoke(userBase)
                             }
                         }
                     } else {
