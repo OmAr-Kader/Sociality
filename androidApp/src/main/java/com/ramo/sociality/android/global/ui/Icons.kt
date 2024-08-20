@@ -235,82 +235,101 @@ fun rememberComment(color: Color): ImageVector {
 fun rememberChat(color: Color): ImageVector {
     return remember {
         ImageVector.Builder(
-            name = "chat",
-            defaultWidth = 40.0.dp,
-            defaultHeight = 40.0.dp,
-            viewportWidth = 40.0f,
-            viewportHeight = 40.0f
+            name = "Chat",
+            defaultWidth = 256.dp,
+            defaultHeight = 256.dp,
+            viewportWidth = 256f,
+            viewportHeight = 256f
         ).apply {
             path(
                 fill = SolidColor(color),
-                fillAlpha = 1f,
+                fillAlpha = 1.0f,
                 stroke = null,
-                strokeAlpha = 1f,
+                strokeAlpha = 1.0f,
                 strokeLineWidth = 1.0f,
                 strokeLineCap = StrokeCap.Butt,
                 strokeLineJoin = StrokeJoin.Miter,
-                strokeLineMiter = 1f,
+                strokeLineMiter = 1.0f,
                 pathFillType = PathFillType.NonZero
             ) {
-                moveTo(11.5f, 23.208f)
-                horizontalLineToRelative(10.292f)
-                quadToRelative(0.5f, 0f, 0.875f, -0.375f)
-                reflectiveQuadToRelative(0.375f, -0.958f)
-                quadToRelative(0f, -0.542f, -0.375f, -0.917f)
-                reflectiveQuadToRelative(-0.917f, -0.375f)
-                horizontalLineTo(11.458f)
-                quadToRelative(-0.541f, 0f, -0.916f, 0.375f)
-                reflectiveQuadToRelative(-0.375f, 0.959f)
-                quadToRelative(0f, 0.541f, 0.375f, 0.916f)
-                reflectiveQuadToRelative(0.958f, 0.375f)
+                moveTo(14.1f, 11.2f)
+                curveToRelative(-1.5f, 0.8f, -2.4f, 1.6f, -3.1f, 3.1f)
+                lineToRelative(-1.1f, 2f)
+                verticalLineTo(84f)
+                curveToRelative(0f, 64.9f, 0f, 67.6f, 0.9f, 69.4f)
+                curveToRelative(0.5f, 1.1f, 1.6f, 2.4f, 2.4f, 3f)
+                curveToRelative(1.6f, 1.1f, 1.7f, 1.1f, 13.9f, 1.2f)
+                lineToRelative(12.3f, 0.1f)
+                verticalLineToRelative(18.3f)
+                verticalLineToRelative(18.3f)
+                lineTo(57.8f, 176f)
+                lineToRelative(18.3f, -18.3f)
+                horizontalLineTo(139f)
+                horizontalLineToRelative(62.8f)
+                lineToRelative(-0.3f, -70.4f)
+                curveToRelative(-0.1f, -38.7f, -0.4f, -71f, -0.5f, -71.8f)
+                curveToRelative(-0.2f, -1.6f, -2.5f, -4f, -4.5f, -4.7f)
+                curveToRelative(-0.9f, -0.4f, -28.8f, -0.5f, -90.9f, -0.5f)
+                horizontalLineTo(16.2f)
+                lineTo(14.1f, 11.2f)
                 close()
-                moveToRelative(0f, -5.208f)
-                horizontalLineToRelative(17.083f)
-                quadToRelative(0.5f, 0f, 0.875f, -0.375f)
-                reflectiveQuadToRelative(0.375f, -0.958f)
-                quadToRelative(0f, -0.542f, -0.395f, -0.917f)
-                quadToRelative(-0.396f, -0.375f, -0.896f, -0.375f)
-                horizontalLineTo(11.458f)
-                quadToRelative(-0.541f, 0f, -0.916f, 0.375f)
-                reflectiveQuadToRelative(-0.375f, 0.917f)
-                quadToRelative(0f, 0.583f, 0.375f, 0.958f)
-                reflectiveQuadTo(11.5f, 18f)
+                moveTo(164.8f, 61.7f)
+                lineToRelative(0.1f, 7.5f)
+                horizontalLineToRelative(-59f)
+                horizontalLineToRelative(-59f)
+                verticalLineToRelative(-7.6f)
+                verticalLineTo(54f)
+                lineToRelative(58.9f, 0.1f)
+                lineToRelative(58.9f, 0.1f)
+                lineTo(164.8f, 61.7f)
                 close()
-                moveToRelative(0f, -5.208f)
-                horizontalLineToRelative(17.083f)
-                quadToRelative(0.5f, 0f, 0.875f, -0.396f)
-                reflectiveQuadToRelative(0.375f, -0.938f)
-                quadToRelative(0f, -0.541f, -0.395f, -0.937f)
-                quadToRelative(-0.396f, -0.396f, -0.896f, -0.396f)
-                horizontalLineTo(11.458f)
-                quadToRelative(-0.541f, 0f, -0.916f, 0.396f)
-                reflectiveQuadToRelative(-0.375f, 0.937f)
-                quadToRelative(0f, 0.542f, 0.375f, 0.938f)
-                quadToRelative(0.375f, 0.396f, 0.958f, 0.396f)
+                moveTo(164.4f, 106.1f)
+                verticalLineToRelative(7.4f)
+                horizontalLineToRelative(-58.8f)
+                horizontalLineTo(46.9f)
+                verticalLineToRelative(-7.4f)
+                verticalLineToRelative(-7.4f)
+                horizontalLineToRelative(58.8f)
+                horizontalLineToRelative(58.8f)
+                lineTo(164.4f, 106.1f)
+                lineTo(164.4f, 106.1f)
                 close()
-                moveTo(3.625f, 33.125f)
-                verticalLineTo(6.208f)
-                quadToRelative(0f, -1.041f, 0.771f, -1.833f)
-                reflectiveQuadToRelative(1.854f, -0.792f)
-                horizontalLineToRelative(27.5f)
-                quadToRelative(1.042f, 0f, 1.833f, 0.792f)
-                quadToRelative(0.792f, 0.792f, 0.792f, 1.833f)
-                verticalLineToRelative(20.917f)
-                quadToRelative(0f, 1.042f, -0.792f, 1.833f)
-                quadToRelative(-0.791f, 0.792f, -1.833f, 0.792f)
-                horizontalLineTo(10.125f)
-                lineToRelative(-4.292f, 4.292f)
-                quadToRelative(-0.625f, 0.625f, -1.416f, 0.27f)
-                quadToRelative(-0.792f, -0.354f, -0.792f, -1.187f)
-                close()
-                moveToRelative(2.625f, -3.25f)
-                lineTo(9f, 27.125f)
-                horizontalLineToRelative(24.75f)
-                verticalLineTo(6.208f)
-                horizontalLineTo(6.25f)
-                close()
-                moveToRelative(0f, -23.667f)
-                verticalLineToRelative(23.667f)
+            }
+            path(
+                fill = SolidColor(color),
+                fillAlpha = 1.0f,
+                stroke = null,
+                strokeAlpha = 1.0f,
+                strokeLineWidth = 1.0f,
+                strokeLineCap = StrokeCap.Butt,
+                strokeLineJoin = StrokeJoin.Miter,
+                strokeLineMiter = 1.0f,
+                pathFillType = PathFillType.NonZero
+            ) {
+                moveTo(216.5f, 135.6f)
+                verticalLineToRelative(36.9f)
+                horizontalLineToRelative(-62.8f)
+                horizontalLineTo(90.8f)
+                lineToRelative(0.2f, 19.2f)
+                curveToRelative(0.2f, 21.2f, 0.2f, 21.3f, 3f, 23.3f)
+                curveToRelative(1.4f, 1f, 1.7f, 1f, 23.1f, 1.3f)
+                curveToRelative(11.9f, 0.2f, 33.8f, 0.3f, 48.6f, 0.4f)
+                lineToRelative(27f, 0f)
+                lineToRelative(14.5f, 14.5f)
+                curveToRelative(8f, 8f, 14.7f, 14.5f, 14.8f, 14.5f)
+                curveToRelative(0.2f, 0f, 0.4f, -6.5f, 0.4f, -14.5f)
+                verticalLineToRelative(-14.5f)
+                horizontalLineToRelative(8.7f)
+                curveToRelative(8.1f, 0f, 8.8f, -0.1f, 10.7f, -1.1f)
+                curveToRelative(1.5f, -0.7f, 2.4f, -1.6f, 3.1f, -3.1f)
+                lineToRelative(1f, -2f)
+                verticalLineToRelative(-52.8f)
+                verticalLineToRelative(-52.8f)
+                lineToRelative(-1f, -2f)
+                curveToRelative(-2f, -3.9f, -2f, -3.9f, -16.1f, -4.1f)
+                lineToRelative(-12.4f, -0.1f)
+                lineTo(216.5f, 135.6f)
+                lineTo(216.5f, 135.6f)
                 close()
             }
         }.build()
@@ -808,50 +827,6 @@ fun rememberProfile(color: Color): ImageVector {
 }
 
 @Composable
-fun rememberDone(): ImageVector {
-    return remember {
-        ImageVector.Builder(
-            name = "done",
-            defaultWidth = 40.0.dp,
-            defaultHeight = 40.0.dp,
-            viewportWidth = 40.0f,
-            viewportHeight = 40.0f
-        ).apply {
-            path(
-                fill = SolidColor(Color.Black),
-                fillAlpha = 1f,
-                stroke = null,
-                strokeAlpha = 1f,
-                strokeLineWidth = 1.0f,
-                strokeLineCap = StrokeCap.Butt,
-                strokeLineJoin = StrokeJoin.Miter,
-                strokeLineMiter = 1f,
-                pathFillType = PathFillType.NonZero
-            ) {
-                moveTo(15.833f, 29.125f)
-                quadToRelative(-0.25f, 0f, -0.479f, -0.083f)
-                quadToRelative(-0.229f, -0.084f, -0.437f, -0.292f)
-                lineToRelative(-7.334f, -7.333f)
-                quadToRelative(-0.375f, -0.375f, -0.375f, -0.938f)
-                quadToRelative(0f, -0.562f, 0.375f, -0.979f)
-                quadToRelative(0.375f, -0.375f, 0.938f, -0.375f)
-                quadToRelative(0.562f, 0f, 0.937f, 0.375f)
-                lineToRelative(6.375f, 6.375f)
-                lineTo(30.5f, 11.208f)
-                quadToRelative(0.375f, -0.375f, 0.938f, -0.375f)
-                quadToRelative(0.562f, 0f, 0.979f, 0.375f)
-                quadToRelative(0.375f, 0.375f, 0.375f, 0.938f)
-                quadToRelative(0f, 0.562f, -0.375f, 0.937f)
-                lineTo(16.75f, 28.75f)
-                quadToRelative(-0.208f, 0.208f, -0.438f, 0.292f)
-                quadToRelative(-0.229f, 0.083f, -0.479f, 0.083f)
-                close()
-            }
-        }.build()
-    }
-}
-
-@Composable
 fun rememberDoneAll(): ImageVector {
     return remember {
         ImageVector.Builder(
@@ -916,289 +891,3 @@ fun rememberDoneAll(): ImageVector {
         }.build()
     }
 }
-
-@Composable
-fun rememberSocialityIcons(): ImageVector {
-    return remember {
-        ImageVector.Builder(
-            name = "SocialityIcons",
-            defaultWidth = 612.dp,
-            defaultHeight = 612.dp,
-            viewportWidth = 612f,
-            viewportHeight = 612f
-        ).apply {
-            group {
-                path(
-                    fill = SolidColor(Color.Black),
-                    fillAlpha = 1.0f,
-                    stroke = null,
-                    strokeAlpha = 1.0f,
-                    strokeLineWidth = 1.0f,
-                    strokeLineCap = StrokeCap.Butt,
-                    strokeLineJoin = StrokeJoin.Miter,
-                    strokeLineMiter = 1.0f,
-                    pathFillType = PathFillType.NonZero
-                ) {
-                    moveTo(543.15f, 193.4f)
-                    arcTo(61.2f, 61.2f, 0f, isMoreThanHalf = false, isPositiveArc = true, 481.95f, 254.60000000000002f)
-                    arcTo(61.2f, 61.2f, 0f, isMoreThanHalf = false, isPositiveArc = true, 420.75f, 193.4f)
-                    arcTo(61.2f, 61.2f, 0f, isMoreThanHalf = false, isPositiveArc = true, 543.15f, 193.4f)
-                    close()
-                }
-                group {
-                    path(
-                        fill = SolidColor(Color.Black),
-                        fillAlpha = 1.0f,
-                        stroke = null,
-                        strokeAlpha = 1.0f,
-                        strokeLineWidth = 1.0f,
-                        strokeLineCap = StrokeCap.Butt,
-                        strokeLineJoin = StrokeJoin.Miter,
-                        strokeLineMiter = 1.0f,
-                        pathFillType = PathFillType.NonZero
-                    ) {
-                        moveTo(481.95f, 139.85f)
-                        curveToRelative(29.528f, 0f, 53.55f, 24.021f, 53.55f, 53.55f)
-                        curveToRelative(0f, 29.529f, -24.021f, 53.55f, -53.55f, 53.55f)
-                        curveToRelative(-29.529f, 0f, -53.55f, -24.021f, -53.55f, -53.55f)
-                        curveTo(428.4f, 163.871f, 452.421f, 139.85f, 481.95f, 139.85f)
-                        moveTo(481.95f, 124.55f)
-                        curveToRelative(-38.021f, 0f, -68.851f, 30.83f, -68.851f, 68.85f)
-                        reflectiveCurveToRelative(30.83f, 68.85f, 68.851f, 68.85f)
-                        reflectiveCurveToRelative(68.85f, -30.83f, 68.85f, -68.85f)
-                        reflectiveCurveTo(519.971f, 124.55f, 481.95f, 124.55f)
-                        lineTo(481.95f, 124.55f)
-                        close()
-                    }
-                }
-            }
-            group {
-                path(
-                    fill = SolidColor(Color.Black),
-                    fillAlpha = 1.0f,
-                    stroke = null,
-                    strokeAlpha = 1.0f,
-                    strokeLineWidth = 1.0f,
-                    strokeLineCap = StrokeCap.Butt,
-                    strokeLineJoin = StrokeJoin.Miter,
-                    strokeLineMiter = 1.0f,
-                    pathFillType = PathFillType.NonZero
-                ) {
-                    moveTo(375.095f, 392.3f)
-                    curveToRelative(3.688f, -59.716f, 50.199f, -107.1f, 106.855f, -107.1f)
-                    curveToRelative(56.655f, 0f, 103.168f, 47.384f, 106.855f, 107.1f)
-                    horizontalLineTo(375.095f)
-                    close()
-                }
-                group {
-                    path(
-                        fill = SolidColor(Color.Black),
-                        fillAlpha = 1.0f,
-                        stroke = null,
-                        strokeAlpha = 1.0f,
-                        strokeLineWidth = 1.0f,
-                        strokeLineCap = StrokeCap.Butt,
-                        strokeLineJoin = StrokeJoin.Miter,
-                        strokeLineMiter = 1.0f,
-                        pathFillType = PathFillType.NonZero
-                    ) {
-                        moveTo(481.95f, 292.85f)
-                        curveToRelative(50.016f, 0f, 91.524f, 39.964f, 98.44f, 91.801f)
-                        horizontalLineTo(383.51f)
-                        curveTo(390.426f, 332.813f, 431.935f, 292.85f, 481.95f, 292.85f)
-                        moveTo(481.95f, 277.55f)
-                        curveToRelative(-63.373f, 0f, -114.75f, 54.805f, -114.75f, 122.4f)
-                        horizontalLineToRelative(229.5f)
-                        curveTo(596.7f, 332.354f, 545.322f, 277.55f, 481.95f, 277.55f)
-                        lineTo(481.95f, 277.55f)
-                        close()
-                    }
-                }
-            }
-            group {
-                path(
-                    fill = SolidColor(Color.Black),
-                    fillAlpha = 1.0f,
-                    stroke = null,
-                    strokeAlpha = 1.0f,
-                    strokeLineWidth = 1.0f,
-                    strokeLineCap = StrokeCap.Butt,
-                    strokeLineJoin = StrokeJoin.Miter,
-                    strokeLineMiter = 1.0f,
-                    pathFillType = PathFillType.NonZero
-                ) {
-                    moveTo(191.25f, 193.4f)
-                    arcTo(61.2f, 61.2f, 0f, isMoreThanHalf = false, isPositiveArc = true, 130.05f, 254.60000000000002f)
-                    arcTo(61.2f, 61.2f, 0f, isMoreThanHalf = false, isPositiveArc = true, 68.85000000000001f, 193.4f)
-                    arcTo(61.2f, 61.2f, 0f, isMoreThanHalf = false, isPositiveArc = true, 191.25f, 193.4f)
-                    close()
-                }
-                group {
-                    path(
-                        fill = SolidColor(Color.Black),
-                        fillAlpha = 1.0f,
-                        stroke = null,
-                        strokeAlpha = 1.0f,
-                        strokeLineWidth = 1.0f,
-                        strokeLineCap = StrokeCap.Butt,
-                        strokeLineJoin = StrokeJoin.Miter,
-                        strokeLineMiter = 1.0f,
-                        pathFillType = PathFillType.NonZero
-                    ) {
-                        moveTo(130.05f, 139.85f)
-                        curveToRelative(29.529f, 0f, 53.55f, 24.021f, 53.55f, 53.55f)
-                        curveToRelative(0f, 29.529f, -24.021f, 53.55f, -53.55f, 53.55f)
-                        curveToRelative(-29.529f, 0f, -53.55f, -24.021f, -53.55f, -53.55f)
-                        curveTo(76.5f, 163.871f, 100.521f, 139.85f, 130.05f, 139.85f)
-                        moveTo(130.05f, 124.55f)
-                        curveToRelative(-38.021f, 0f, -68.85f, 30.83f, -68.85f, 68.85f)
-                        reflectiveCurveToRelative(30.829f, 68.85f, 68.85f, 68.85f)
-                        reflectiveCurveToRelative(68.85f, -30.83f, 68.85f, -68.85f)
-                        reflectiveCurveTo(168.07f, 124.55f, 130.05f, 124.55f)
-                        lineTo(130.05f, 124.55f)
-                        close()
-                    }
-                }
-            }
-            group {
-                path(
-                    fill = SolidColor(Color.Black),
-                    fillAlpha = 1.0f,
-                    stroke = null,
-                    strokeAlpha = 1.0f,
-                    strokeLineWidth = 1.0f,
-                    strokeLineCap = StrokeCap.Butt,
-                    strokeLineJoin = StrokeJoin.Miter,
-                    strokeLineMiter = 1.0f,
-                    pathFillType = PathFillType.NonZero
-                ) {
-                    moveTo(23.195f, 392.3f)
-                    curveToRelative(3.688f, -59.716f, 50.199f, -107.1f, 106.855f, -107.1f)
-                    curveToRelative(56.656f, 0f, 103.168f, 47.384f, 106.855f, 107.1f)
-                    horizontalLineTo(23.195f)
-                    close()
-                }
-                group {
-                    path(
-                        fill = SolidColor(Color.Black),
-                        fillAlpha = 1.0f,
-                        stroke = null,
-                        strokeAlpha = 1.0f,
-                        strokeLineWidth = 1.0f,
-                        strokeLineCap = StrokeCap.Butt,
-                        strokeLineJoin = StrokeJoin.Miter,
-                        strokeLineMiter = 1.0f,
-                        pathFillType = PathFillType.NonZero
-                    ) {
-                        moveTo(130.05f, 292.85f)
-                        curveToRelative(50.016f, 0f, 91.525f, 39.964f, 98.44f, 91.801f)
-                        horizontalLineTo(31.61f)
-                        curveTo(38.525f, 332.813f, 80.034f, 292.85f, 130.05f, 292.85f)
-                        moveTo(130.05f, 277.55f)
-                        curveToRelative(-63.373f, 0f, -114.75f, 54.805f, -114.75f, 122.4f)
-                        horizontalLineToRelative(229.5f)
-                        curveTo(244.8f, 332.354f, 193.423f, 277.55f, 130.05f, 277.55f)
-                        lineTo(130.05f, 277.55f)
-                        close()
-                    }
-                }
-            }
-            group {
-                path(
-                    fill = SolidColor(Color.Black),
-                    fillAlpha = 1.0f,
-                    stroke = null,
-                    strokeAlpha = 1.0f,
-                    strokeLineWidth = 1.0f,
-                    strokeLineCap = StrokeCap.Butt,
-                    strokeLineJoin = StrokeJoin.Miter,
-                    strokeLineMiter = 1.0f,
-                    pathFillType = PathFillType.NonZero
-                ) {
-                    moveTo(374.85f, 246.95f)
-                    arcTo(68.85f, 68.85f, 0f, isMoreThanHalf = false, isPositiveArc = true, 306f, 315.79999999999995f)
-                    arcTo(68.85f, 68.85f, 0f, isMoreThanHalf = false, isPositiveArc = true, 237.15f, 246.95f)
-                    arcTo(68.85f, 68.85f, 0f, isMoreThanHalf = false, isPositiveArc = true, 374.85f, 246.95f)
-                    close()
-                }
-                group {
-                    path(
-                        fill = SolidColor(Color.Black),
-                        fillAlpha = 1.0f,
-                        stroke = null,
-                        strokeAlpha = 1.0f,
-                        strokeLineWidth = 1.0f,
-                        strokeLineCap = StrokeCap.Butt,
-                        strokeLineJoin = StrokeJoin.Miter,
-                        strokeLineMiter = 1.0f,
-                        pathFillType = PathFillType.NonZero
-                    ) {
-                        moveTo(306f, 185.75f)
-                        curveToRelative(33.752f, 0f, 61.2f, 27.448f, 61.2f, 61.2f)
-                        curveToRelative(0f, 33.751f, -27.448f, 61.2f, -61.2f, 61.2f)
-                        reflectiveCurveToRelative(-61.2f, -27.449f, -61.2f, -61.2f)
-                        curveTo(244.8f, 213.198f, 272.248f, 185.75f, 306f, 185.75f)
-                        moveTo(306f, 170.45f)
-                        curveToRelative(-42.243f, 0f, -76.5f, 34.256f, -76.5f, 76.5f)
-                        curveToRelative(0f, 42.243f, 34.257f, 76.5f, 76.5f, 76.5f)
-                        reflectiveCurveToRelative(76.5f, -34.257f, 76.5f, -76.5f)
-                        curveTo(382.5f, 204.707f, 348.243f, 170.45f, 306f, 170.45f)
-                        lineTo(306f, 170.45f)
-                        close()
-                    }
-                }
-            }
-            group {
-                path(
-                    fill = SolidColor(Color.Black),
-                    fillAlpha = 1.0f,
-                    stroke = null,
-                    strokeAlpha = 1.0f,
-                    strokeLineWidth = 1.0f,
-                    strokeLineCap = StrokeCap.Butt,
-                    strokeLineJoin = StrokeJoin.Miter,
-                    strokeLineMiter = 1.0f,
-                    pathFillType = PathFillType.NonZero
-                ) {
-                    moveTo(191.25f, 468.8f)
-                    verticalLineToRelative(-12.025f)
-                    curveToRelative(0f, -60.863f, 51.469f, -110.374f, 114.75f, -110.374f)
-                    curveToRelative(63.281f, 0f, 114.75f, 49.511f, 114.75f, 110.374f)
-                    verticalLineTo(468.8f)
-                    horizontalLineTo(191.25f)
-                    close()
-                }
-                group {
-                    path(
-                        fill = SolidColor(Color.Black),
-                        fillAlpha = 1.0f,
-                        stroke = null,
-                        strokeAlpha = 1.0f,
-                        strokeLineWidth = 1.0f,
-                        strokeLineCap = StrokeCap.Butt,
-                        strokeLineJoin = StrokeJoin.Miter,
-                        strokeLineMiter = 1.0f,
-                        pathFillType = PathFillType.NonZero
-                    ) {
-                        moveTo(306f, 354.05f)
-                        curveToRelative(59.058f, 0f, 107.1f, 46.084f, 107.1f, 102.725f)
-                        verticalLineToRelative(4.376f)
-                        horizontalLineTo(198.9f)
-                        verticalLineToRelative(-4.376f)
-                        curveTo(198.9f, 400.134f, 246.942f, 354.05f, 306f, 354.05f)
-                        moveTo(306f, 338.75f)
-                        curveToRelative(-67.595f, 0f, -122.4f, 52.847f, -122.4f, 118.024f)
-                        curveToRelative(0f, 0f, 0f, 5.859f, 0f, 19.676f)
-                        horizontalLineToRelative(244.8f)
-                        curveToRelative(0f, -13.816f, 0f, -19.676f, 0f, -19.676f)
-                        curveTo(428.4f, 391.597f, 373.596f, 338.75f, 306f, 338.75f)
-                        lineTo(306f, 338.75f)
-                        close()
-                    }
-                }
-            }
-        }.build()
-    }
-}
-
-

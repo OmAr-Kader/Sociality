@@ -19,7 +19,7 @@ kotlin {
     listOf(
         iosX64(), // For iOS simulators on Intel Macs
         iosArm64(), // For physical iOS devices
-        //iosSimulatorArm64() // For iOS simulators on Apple Silicon Macs
+        iosSimulatorArm64() // For iOS simulators on Apple Silicon Macs
     ).forEach {
         it.binaries.framework {
             baseName = "shared"

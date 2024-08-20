@@ -32,21 +32,14 @@ data class Theme(
     val textHintColor: Color,
     val pri: Color
 ) {
+    @Suppress("unused")
     val priAlpha: Color = pri.copy(alpha = 0.14F)
     val textHintAlpha = textHintColor.copy(alpha = 0.5F)
     val backDarkAlpha = backDark.copy(alpha = 0.5F)
+    val seenColor = if (isDarkMode) Color(0xFF4FC3F7) else Color.Blue
 }
 
 fun generateTheme(isDarkMode: Boolean): Theme {
-    /*
-    self.background = Color(red: 31 / 255, green: 31 / 255, blue: 31 / 255)
-            self.backDark = Color(red: 50 / 255, green: 50 / 255, blue: 50 / 255)
-            self.backDarkSec = Color(red: 100 / 255, green: 100 / 255, blue: 100 / 255)
-
-
-            self.background = Color.white
-            self.backDark = Color(red: 230 / 255, green: 230 / 255, blue: 230 / 255)
-            self.backDarkSec = Color(red: 200 / 255, green: 200 / 255, blue: 200 / 255)*/
     return if (isDarkMode) {
         Theme(
             isDarkMode = true,
@@ -54,7 +47,7 @@ fun generateTheme(isDarkMode: Boolean): Theme {
             primary = Color(red = 109, green = 157, blue = 241),
             secondary = Color(red = 65, green = 130, blue = 237),
             background = Color(red = 31, green = 31, blue = 31, alpha = 255),
-            backDark = Color(50, 50, 25),
+            backDark = Color(50, 50, 50),
             backDarkSec = Color(100, 100, 100),
             backgroundPrimary = Color(red = 31, green = 31, blue = 31, alpha = 255).darker(),
             backGreyTrans = Color(85, 85, 85, 85),

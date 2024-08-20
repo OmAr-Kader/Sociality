@@ -78,7 +78,7 @@ fun PostCreatorScreen(userBase: UserBase, backPress: suspend () -> Unit, viewMod
                 Spacer(modifier = Modifier.height(16.dp))
                 Row(
                     modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween
+                    horizontalArrangement = Arrangement.Center
                 ) {
                     Button(onClick = {
                         // Simulate media selection
@@ -86,6 +86,7 @@ fun PostCreatorScreen(userBase: UserBase, backPress: suspend () -> Unit, viewMod
                     }) {
                         Text("Add Image")
                     }
+                    Spacer(Modifier.width(10.dp))
                     Button(onClick = {
                         // Simulate media selection
                         viewModel.onMediaSelected(2, "https://example.com/video.mp4")
@@ -93,19 +94,20 @@ fun PostCreatorScreen(userBase: UserBase, backPress: suspend () -> Unit, viewMod
                         Text("Add Video")
                     }
                 }
-                Spacer(modifier = Modifier.height(16.dp))
-                Button(
-                    onClick = {
-                        viewModel.createPost(userBase.id, {
-                            scope.launch { backPress() }
-                        }) {
-                            scope.launch { scaffoldState.showSnackbar("Failed") }
-                        }
-                    },
-                    colors = ButtonDefaults.buttonColors(containerColor = theme.primary),
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    Text("Post", color = Color.White)
+                Column(Modifier.padding(16.dp)) {
+                    Button(
+                        onClick = {
+                            viewModel.createPost(userBase.id, {
+                                scope.launch { backPress() }
+                            }) {
+                                scope.launch { scaffoldState.showSnackbar("Failed") }
+                            }
+                        },
+                        colors = ButtonDefaults.buttonColors(containerColor = theme.primary),
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Text("Post", color = theme.textForPrimaryColor)
+                    }
                 }
             }
         }
@@ -128,18 +130,19 @@ fun ColumnScope.BasicsViewPostCreator(
     theme: Theme = koinInject(),
     scrollToEnd: (Int) -> Unit,
 ) {
-    LazyColumn(modifier = Modifier.fillMaxWidth().weight(1F), contentPadding = PaddingValues(16.dp), state = scrollState) {
+    LazyColumn(modifier = Modifier
+        .fillMaxWidth()
+        .weight(1F), contentPadding = PaddingValues(16.dp), state = scrollState) {
         itemsIndexed(post.content) { i, (font, text) ->
-            val isHeadline = font > HEADLINE_FONT
+            val isHeadline = font == HEADLINE_FONT
             OutlinedTextField(
                 modifier = Modifier.fillMaxWidth(),
                 value = text,
                 onValueChange = {
                     changeAbout(it, i)
                 },
-                placeholder = { Text(text = if (isHeadline) "Enter About Headline" else "Enter About Details") },
-                label = { Text(text = if (isHeadline) "About Headline" else "About Details") },
-
+                placeholder = { Text(text = if (isHeadline) "Headline" else "Details") },
+                label = { Text(text = if (isHeadline) "Enter Headline" else "Enter Details") },
                 textStyle = MaterialTheme.typography.bodySmall.copy(fontSize = font.sp).copy(textDirection = TextDirection.Content),
                 colors = theme.outlinedTextFieldStyle(),
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),

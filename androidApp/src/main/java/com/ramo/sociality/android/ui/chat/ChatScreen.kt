@@ -41,7 +41,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.FilterQuality
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
@@ -273,7 +272,7 @@ fun ChatBubble(
                                 modifier = Modifier.height(20.dp),
                                 imageVector = rememberDoneAll(), // if (message.isSeen) rememberDoneAll() else rememberDone()
                                 contentDescription = if (message.isSeen) "Seen" else "Sent",
-                                tint = if (message.isSeen) Color.Blue else theme.textGrayColor
+                                tint = if (message.isSeen) theme.seenColor else theme.textGrayColor
                             )
                         }
                     }

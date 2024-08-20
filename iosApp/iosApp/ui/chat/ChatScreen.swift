@@ -137,7 +137,7 @@ struct ChatBubble : View {
                                 Text(message.timestamp).font(.system(size: 13)).foregroundStyle(theme.textGrayColor)
                                 Spacer().frame(width: 4)
                                 if message.isSender {
-                                    ImageAsset(icon: "done_all", tint: message.isSeen ? Color.blue : theme.textGrayColor).frame(width: 17, height: 17)
+                                    ImageAsset(icon: "done_all", tint: message.isSeen ? theme.seenColor : theme.textGrayColor).frame(width: 17, height: 17)
                                 }
                             }.onEnd()
                         }

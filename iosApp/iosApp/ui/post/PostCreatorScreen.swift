@@ -32,7 +32,6 @@ struct PostCreatorScreen : View {
                         obs.onMediaSelected(mediaType: 1, mediaURL: "https://example.com/media.jpg")
                     }, label: {
                         Text("Add Image")
-                            .font(.headline)
                             .foregroundColor(theme.textForPrimaryColor)
                     }).padding()
                         .background(RoundedRectangle(cornerRadius: 15).fill(theme.primary))
@@ -40,12 +39,10 @@ struct PostCreatorScreen : View {
                         obs.onMediaSelected(mediaType: 2, mediaURL: "https://example.com/media.jpg")
                     }, label: {
                         Text("Add Video")
-                            .font(.headline)
                             .foregroundColor(theme.textForPrimaryColor)
                     }).padding()
                         .background(RoundedRectangle(cornerRadius: 15).fill(theme.primary))
                 }.padding()
-                Spacer().frame(height: 16)
                 VStack {
                     Button(action: {
                         obs.createPost(userId: userBase.id, invoke: { _ in
@@ -57,7 +54,6 @@ struct PostCreatorScreen : View {
                         HStack {
                             Spacer()
                             Text("Post")
-                                .font(.headline)
                                 .foregroundColor(theme.textForPrimaryColor)
                             Spacer()
                         }
@@ -65,7 +61,7 @@ struct PostCreatorScreen : View {
                         .background(RoundedRectangle(cornerRadius: 15).fill(theme.primary))
                 }.padding()
             }
-            BackButton(title: "Post Creator", action: backPress).onTop().onStart()
+            BackButton(action: backPress).onTop().onStart()
             LoadingScreen(isLoading: state.isProcess)
         }.background(theme.background)
             .toolbar(.hidden)
@@ -91,11 +87,11 @@ struct BasicsViewPostCreator : View {
             LazyVStack {
                 ForEach(Array(post.content.enumerated()), id: \.offset) { index, data in
                     let content = data as PostContent
-                    let isHeadline = content.font > ConstKt.HEADLINE_FONT
+                    let isHeadline = content.font == ConstKt.HEADLINE_FONT
                     HStack(alignment: .center) {
                         OutlinedTextField(text: content.text, onChange: { it in
                             changeAbout(it, index)
-                        }, hint: isHeadline ? "Enter About Headline" : "Enter About Details", isError: false, errorMsg: "Shouldn't be Empty", theme: theme, cornerRadius: 12, lineLimit: nil, keyboardType: .default)
+                        }, hint: isHeadline ? "Enter Headline" : "Enter Details", isError: false, errorMsg: "Shouldn't be Empty", theme: theme, cornerRadius: 12, lineLimit: nil, keyboardType: .default)
                         Button(action: {
                             if (index == post.content.count - 1) {
                                 makeFontDialogVisible()

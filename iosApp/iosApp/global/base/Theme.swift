@@ -22,7 +22,8 @@ struct Theme {
     let backgroundPrimary: Color
     let pri: Color
     let priAlpha: Color
-
+    let seenColor: Color
+    
     init(isDarkMode: Bool) {
         self.isDarkMode = isDarkMode
         if (isDarkMode) {
@@ -45,6 +46,7 @@ struct Theme {
             self.backDarkAlpha = UIColor(red: 31 / 255, green: 31 / 255, blue: 31 / 255, alpha: 0.5).toC
             self.primaryAlpha = UIColor(red: 208 / 255, green: 188 / 255, blue: 1, alpha: 0.5).toC
             self.priAlpha = UIColor(red: 109 / 255, green: 157 / 255, blue: 241 / 255, alpha: 0.14).toC
+            self.seenColor = Color(red: 79 / 255, green: 195 / 255, blue: 247 / 255)
         } else {
             self.isDarkStatusBarText = true
             self.primary = Color(red: 109 / 255, green: 157 / 255, blue: 241 / 255)
@@ -65,6 +67,7 @@ struct Theme {
             self.backDarkAlpha = UIColor(red: 241 / 255, green: 241 / 255, blue: 241 / 255, alpha: 0.5).toC
             self.primaryAlpha = UIColor(red: 102 / 255, green: 80 / 255, blue: 164 / 255, alpha: 0.5).toC
             self.priAlpha = UIColor(red: 1, green: 1, blue: 1, alpha: 0.14).toC
+            self.seenColor = Color.blue
         }
     }
     
