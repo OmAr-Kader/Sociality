@@ -5,6 +5,7 @@ Social Media application built using Kotlin Multiplatform Mobile (KMM) and Supab
 Screenshot
 -------------
 ### IOS
+<!--suppress CheckImageSize -->
 <table>
     <tr>
       <td> <img src="Screenshots/IOS/1_.png"  width="300" height="667" alt="1"/> </td>
