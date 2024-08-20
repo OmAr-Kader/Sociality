@@ -25,24 +25,20 @@ struct PostScreen : View {
     var body: some View {
         ZStack {
             GeometryReader { proxy in
-                PageView(list: postMedia, theme: theme, size: proxy.size)
-                    .zoomable(
-                        minZoomScale: 0.5,        // Default value: 1
-                        doubleTapZoomScale: 2,    // Default value: 3
-                        outOfBoundsColor: theme.background  // Default value: .clear
-                    )
+                PageView(list: postMedia, theme: theme, size: proxy.size) {
+                    isVisible.toggle()
+                }
                 if isVisible {
                     VStack {
                         HStack {
                             BackPressButton(action: backPress).onStart()
-                        }.onTop().padding(leading: 5, trailing: 5).background(
+                        }.onTop().padding(leading: 5, trailing: 5).frame(height: 60).background(
                             LinearGradient(gradient: Gradient(colors: [theme.backDarkAlpha, Color.clear]), startPoint: .top, endPoint: .bottom)
                         )
-                        Spacer()
-                    }
+                    }.frame(height: 60)
                 }
             }
-        }.background(theme.background).padding().onAppear {
+        }.background(theme.background).toolbar(.hidden).padding(0).onAppear {
             guard let args = screenConfig(.POST_SCREEN_ROUTE) as? PostRoute else {
                 return
             }
@@ -62,16 +58,23 @@ struct PageView : View {
     let list: [String]
     let theme: Theme
     let size: CGSize
-    
+    let onClick: () -> Unit
+
     @State var current: Int = 0
     var body: some View {
         TabView(selection: $current) {
             ForEach(0..<list.count, id: \.self) { idx in
                 ImageCacheView(list[idx], contentMode: .fit)
                     .frame(width: size.width).tag(idx)
+                    .zoomable(
+                        minZoomScale: 0.5,        // Default value: 1
+                        doubleTapZoomScale: 2,    // Default value: 3
+                        outOfBoundsColor: theme.background  // Default value: .clear
+                    ).onTapGesture {
+                        onClick()
+                    }
             }
         }.tabViewStyle(.page(indexDisplayMode: .automatic))
-            .clipShape(RoundedRectangle(cornerRadius: 20))
             .frame(width: size.width).onCenter().background(theme.background)
     }
 }

@@ -68,8 +68,8 @@ struct AuthScreen : View {
                             .foregroundColor(theme.textColor)
                     })
                 }.padding(all: 16)
-            }.toolbar(.hidden)
+            }
             LoadingScreen(isLoading: state.isProcess)
-        }.background(theme.background).toastView(toast: $toast, backColor: theme.backDark)
+        }.toolbar(.hidden).background(theme.background).toastView(toast: $toast, backColor: theme.backDark)
     }
 }

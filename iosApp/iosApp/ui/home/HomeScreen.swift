@@ -128,7 +128,7 @@ struct BarMainScreen : View {
             HStack {
                 HStack {
                     Button(action: openDrawer, label: {
-                        ImageAsset(icon: "menu", tint: theme.textColor).frame(width: 35, height: 25)
+                        ImageAsset(icon: "menu", tint: theme.textColor).frame(width: 35, height: 35).padding(5)
                     }).padding()
                     Spacer().frame(width: 5)
                     Image(
@@ -155,7 +155,7 @@ struct BarMainScreen : View {
                         .onTapGesture(perform: onProfile)
                     Spacer().frame(width: 10)
                 }
-            }.padding().frame(height: 60).background(theme.background)
+            }.padding(leading: 5, trailing: 15).frame(height: 60).background(theme.background)
         }.frame(height: 60).clipShape(
             .rect(
                 topLeadingRadius: 0,

@@ -39,7 +39,7 @@ import androidx.compose.ui.unit.dp
 import com.ramo.sociality.android.global.base.Theme
 import com.ramo.sociality.android.global.base.outlinedTextFieldStyle
 import com.ramo.sociality.android.global.navigation.Screen
-import com.ramo.sociality.android.global.ui.BackButton
+import com.ramo.sociality.android.global.ui.BackButtonLess
 import com.ramo.sociality.android.global.ui.OnLaunchScreen
 import com.ramo.sociality.android.global.ui.rememberProfile
 import com.ramo.sociality.android.global.ui.rememberSearch
@@ -65,9 +65,10 @@ fun SearchScreen(navigateToScreen: suspend (Screen, String) -> Unit, backPress: 
                 .padding(padding)
         ) {
             Row(horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
-                BackButton(theme.textForPrimaryColor) {
+                BackButtonLess(color = theme.textColor) {
                     scope.launch { backPress() }
                 }
+                Spacer(Modifier.width(10.dp))
                 Row(
                     Modifier
                         .padding(start = 7.dp, end = 7.dp)

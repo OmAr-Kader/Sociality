@@ -40,11 +40,11 @@ struct PostItem : View {
                     PostContentScrollable(about: meme.post.content, theme: theme)
                     if (meme.post.isHaveMedia) {
                         ScrollView(.horizontal) {
-                            LazyHStack {
+                            LazyHStack(spacing: 0) {
                                 ForEach(Array(meme.post.postMedia.enumerated()), id: \.offset) { index, data in
                                     let media = data as PostMedia
                                     ImageCacheView(media.mediaURL, isVideoPreview: false, contentMode: .fit)
-                                        .frame(height: 200).onTapGesture {
+                                        .frame(height: 200).padding(0).onTapGesture {
                                             navigateToImage(index)
                                         }
                                 }
@@ -86,10 +86,10 @@ struct PostItem : View {
                         Spacer(minLength: 0)
                     }
                 }
+                Spacer(minLength: 0)
             }.background(RoundedRectangle(cornerRadius: 7).fill(theme.backgroundPrimary))
                 .shadow(radius: 4)
-            Spacer()
-        }.onStart().padding(10)
+        }.onStart().padding(5)
     }
 }
 
@@ -122,7 +122,7 @@ struct CommentBottomSheet : View, KeyboardReadable {
                             .onTapGesture {
                                 isFoucesed = true
                             }
-                            .environment(\.layoutDirection, textDirection(for: commentText))// TEMP Solution
+                            .environment(\.layoutDirection, commentText.textDirection)// TEMP Solution
 
                         Button(action: {
                             isFoucesed = false
@@ -229,7 +229,7 @@ struct PostContentScrollable : View {
                     .font(.system(size: CGFloat(post.font)))
                     .padding(leading: 20, trailing: 20)
                     .lineLimit(nil).onStart()
-                    .environment(\.layoutDirection, textDirection(for: post.text))// TEMP Solution
+                    .environment(\.layoutDirection, post.text.textDirection)// TEMP Solution
             }
         }
     }

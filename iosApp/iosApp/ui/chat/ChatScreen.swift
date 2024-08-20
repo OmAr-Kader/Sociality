@@ -36,7 +36,7 @@ struct ChatScreen : View, KeyboardReadable {
                         ImageCacheView(state.chat.chatPic, isVideoPreview: false, contentMode: .fill, errorImage: UIImage(named: "profile")?.withTintColor(UIColor(theme.textColor)))
                             .frame(width: 40, height: 40)
                             .clipShape(Circle())
-                        Spacer().frame(width: 4)
+                        Spacer().frame(width: 7)
                         Text(state.chat.chatLabel)
                             .lineLimit(1)
                             .truncationMode(.tail)//overflow
@@ -123,12 +123,13 @@ struct ChatBubble : View {
         VStack {
             VStack {
                 if showSenderName && !message.isSender {
-                    Text(message.senderName).font(.title2).foregroundStyle(theme.textHintColor)
+                    Text(message.senderName).foregroundStyle(theme.textHintColor)
                 }
                 VStack {
                     VStack {
                         VStack {
                             Text(message.content).foregroundStyle(theme.textColor)
+                                .environment(\.layoutDirection, message.content.textDirection)// TEMP Solution
                         }.onStart()
                         VStack {
                             HStack {
@@ -140,9 +141,9 @@ struct ChatBubble : View {
                                 }
                             }.onEnd()
                         }
-                    }.padding(all: 4)
-                }.background(RoundedRectangle(cornerRadius: 8).fill(message.isSender ? theme.backgroundPrimary : theme.background.margeWithPrimary(0.3))).padding(all: 8)
-            }.frame(minWidth: 200).padding(leading: message.isSender ? 40 : 0, trailing: message.isSender ? 0 : 40)
+                    }.padding(all: 8)
+                }.background(RoundedRectangle(cornerRadius: 8).fill(message.isSender ? theme.backgroundPrimary : theme.background.margeWithPrimary(0.3)))
+            }.frame(minWidth: 200).padding(top: 5, leading: message.isSender ? 40 : 8, bottom: 5, trailing: message.isSender ? 8 : 40)
         }.onStart()
     }
 }

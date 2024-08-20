@@ -2,6 +2,7 @@ import Foundation
 import shared
 import os
 import SwiftUI
+import NaturalLanguage
 
 typealias Unit = Void
 typealias Long = Int64
@@ -50,6 +51,20 @@ extension Array {
 }
 
 extension String {
+
+    var isRightToLeft: Bool {
+        guard let language = NLLanguageRecognizer.dominantLanguage(for: self) else { return false }
+        switch language {
+        case .arabic, .hebrew, .persian, .urdu:
+            return true
+        default:
+            return false
+        }
+    }
+
+    var textDirection: LayoutDirection {
+        return self.isRightToLeft ? .rightToLeft : .leftToRight
+    }
 
     var firstCapital: String {
         // 1

@@ -116,9 +116,8 @@ fun PostCreatorScreen(userBase: UserBase, backPress: suspend () -> Unit, viewMod
     }
 }
 
-
 @Composable
-fun BasicsViewPostCreator(
+fun ColumnScope.BasicsViewPostCreator(
     post: Post,
     isFontDialogVisible: Boolean,
     scrollState: LazyListState,
@@ -129,7 +128,7 @@ fun BasicsViewPostCreator(
     theme: Theme = koinInject(),
     scrollToEnd: (Int) -> Unit,
 ) {
-    LazyColumn(modifier = Modifier.fillMaxWidth(), contentPadding = PaddingValues(16.dp), state = scrollState) {
+    LazyColumn(modifier = Modifier.fillMaxWidth().weight(1F), contentPadding = PaddingValues(16.dp), state = scrollState) {
         itemsIndexed(post.content) { i, (font, text) ->
             val isHeadline = font > HEADLINE_FONT
             OutlinedTextField(

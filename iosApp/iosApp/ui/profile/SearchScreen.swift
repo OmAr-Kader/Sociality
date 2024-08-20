@@ -29,8 +29,8 @@ struct SearchScreen : View {
                         backPress()
                     }
                     HStack {
-                        OutlinedTextField(text: state.searchText, onChange: obs.onSearchQueryChange, hint: "Search Users", isError: false, errorMsg: "Shouldn't be empty", theme: theme, cornerRadius: 12, lineLimit: 1, keyboardType: UIKeyboardType.default, backColor: theme.background
-                        ).environment(\.layoutDirection, textDirection(for: state.searchText))// TEMP Solutio
+                        OutlinedTextField(text: state.searchText, onChange: obs.onSearchQueryChange, hint: "Search Users", isError: false, errorMsg: "Shouldn't be empty", theme: theme, cornerRadius: 12, lineLimit: 1, keyboardType: UIKeyboardType.alphabet
+                        ).environment(\.layoutDirection, state.searchText.textDirection)
                         Spacer()
                         ImageAsset(icon: "search", tint: theme.textColor)
                             .onTapGesture {
@@ -97,12 +97,12 @@ struct SearchItem : View {
         VStack {
             HStack {
                 ImageAsset(icon: "search", tint: theme.textColor)
-                    .frame(width: 35, height: 35)
+                    .frame(width: 25, height: 25)
                 Spacer().frame(width: 8)
                 Text(name).foregroundStyle(theme.textColor)
             }.padding(8).onStart()
             Divider().padding(leading: 15, trailing: 15)
-        }.padding(8).onStart()
+        }.padding(8).onStart().onTapGesture(perform: onClick)
     }
 }
 
@@ -122,73 +122,6 @@ struct UserItem : View {
                 Text(user.name).foregroundStyle(theme.textColor)
             }.padding(8).onStart()
             Divider().padding(leading: 15, trailing: 15)
-        }.padding(8).onStart()
+        }.padding(8).onStart().onTapGesture(perform: onClick)
     }
 }
-
-/*
- 
- @Composable
- fun SearchItem(name: String, theme: Theme, onClick: () -> Unit) {
-     Row(
-         modifier = Modifier
-             .padding(8.dp)
-             .fillMaxWidth()
-             .clickable(onClick = onClick),
-         verticalAlignment = Alignment.CenterVertically
-     ) {
-         Image(
-             imageVector = rememberSearch(theme.textColor),
-             contentDescription = "Profile Image",
-             modifier = Modifier
-                 .size(35.dp)
-                 .clip(CircleShape),
-             contentScale = ContentScale.Crop
-         )
-         Spacer(modifier = Modifier.width(8.dp))
-         Text(text = name, color = theme.textColor)
-     }
-     HorizontalDivider(Modifier.padding(start = 15.dp, end = 15.dp))
- }
- @Composable
- fun UserItem(user: User, theme: Theme, onClick: () -> Unit) {
-     Row(
-         modifier = Modifier
-             .padding(8.dp)
-             .fillMaxWidth()
-             .clickable(onClick = onClick),
-         verticalAlignment = Alignment.CenterVertically
-     ) {
-         coil.compose.SubcomposeAsyncImage(
-             model = LocalContext.current.imageBuildr(user.profilePicture),
-             success = { (painter, _) ->
-                 Image(
-                     painter = painter,
-                     contentDescription = "Profile Image",
-                     modifier = Modifier
-                         .size(40.dp)
-                         .clip(CircleShape),
-                     contentScale = ContentScale.Crop
-                 )
-             },
-             error = {
-                 Icon(
-                     modifier = Modifier
-                         .size(40.dp)
-                         .clip(CircleShape),
-                     imageVector = rememberProfile(color = theme.textColor),
-                     contentDescription = "Profile"
-                 )
-             },
-             onError = {
-                 loggerError("AsyncImagePainter.Error", it.result.throwable.stackTraceToString())
-             },
-             contentScale = ContentScale.Crop,
-             filterQuality = FilterQuality.None,
-             contentDescription = "Image"
-         )
-         Text(text = user.name, color = theme.textColor)
-     }
-     HorizontalDivider(Modifier.padding(start = 15.dp, end = 15.dp))
- }
- */

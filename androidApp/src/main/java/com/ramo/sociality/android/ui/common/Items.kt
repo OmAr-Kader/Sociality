@@ -160,7 +160,8 @@ fun LazyItemScope.PostItem(
                                     modifier = Modifier
                                         .wrapContentWidth()
                                         .height(200.dp)
-                                        .clickable(onClick = { navigateToImage(i) }),
+                                        .clickable(onClick = { navigateToImage(i) })
+                                        .clip(if (i == 0) RoundedCornerShape(topStart = 20.dp, bottomStart = 20.dp) else if (i == meme.post.postMedia.lastIndex) RoundedCornerShape(topEnd = 20.dp, bottomEnd = 20.dp) else RoundedCornerShape(0)),
                                     contentScale = ContentScale.Fit
                                 )
                             },

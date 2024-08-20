@@ -36,13 +36,13 @@ extension View {
     @inlinable public func onStart() -> some View {
         return HStack {
             self
-            Spacer()
+            Spacer(minLength: 0)
         }
     }
     
     @inlinable public func onEnd() -> some View {
         return HStack {
-            Spacer()
+            Spacer(minLength: 0)
             self
         }
     }
@@ -64,9 +64,9 @@ extension View {
     
     @inlinable public func onBottomEnd() -> some View {
         return HStack {
-            Spacer()
+            Spacer(minLength: 0)
             VStack(alignment: .center) {
-                Spacer()
+                Spacer(minLength: 0)
                 self
             }
         }
@@ -74,7 +74,7 @@ extension View {
     
     @inlinable public func onBottom() -> some View {
         return VStack {
-            Spacer()
+            Spacer(minLength: 0)
             self
         }
     }

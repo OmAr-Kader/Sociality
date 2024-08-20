@@ -47,6 +47,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextDirection
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.ramo.sociality.android.global.base.Theme
 import com.ramo.sociality.android.global.base.darker
 import com.ramo.sociality.android.global.navigation.Screen
@@ -96,6 +97,7 @@ fun ChatScreen(
                     BackButtonLess(color = theme.textColor) {
                         scope.launch { backPress() }
                     }
+                    Spacer(Modifier.width(7.dp))
                     coil.compose.SubcomposeAsyncImage(
                         model = LocalContext.current.imageBuildr(state.chat.chatPic),
                         success = { (painter, _) ->
@@ -125,7 +127,7 @@ fun ChatScreen(
                         filterQuality = FilterQuality.None,
                         contentDescription = "Image"
                     )
-                    Spacer(Modifier.width(10.dp))
+                    Spacer(Modifier.width(7.dp))
                     Text(text = state.chat.chatLabel, color = theme.textColor, style = MaterialTheme.typography.titleLarge)
                 }
                 Row {
@@ -262,7 +264,8 @@ fun ChatBubble(
                         Text(
                             text = message.timestamp,
                             style = MaterialTheme.typography.labelSmall,
-                            color = theme.textGrayColor
+                            color = theme.textGrayColor,
+                            fontSize = 13.sp
                         )
                         Spacer(modifier = Modifier.width(4.dp))
                         if (message.isSender) {
