@@ -69,7 +69,7 @@ Welcome to **Sociality**, a multi-platform social media mobile application built
 
 ```plaintext
 ├── shared
-│   └── src/commonMain/kotlin/com/omarkader/sociality
+│   └── src
 ├── androidApp        # Android-specific implementation
 ├── iosApp            # iOS-specific implementation
 ```
